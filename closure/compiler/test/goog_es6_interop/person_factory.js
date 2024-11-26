@@ -20,7 +20,6 @@
 goog.declareModuleId('rulesClosure.googEs6Interop.personFactory');
 
 import {Person} from '/closure/compiler/test/goog_es6_interop/person.js';
-import {assert} from 'goog:goog.asserts';
 
 /**
  * Creates a new `Person`.
@@ -30,6 +29,9 @@ import {assert} from 'goog:goog.asserts';
  */
 export const createPerson = (name) => {
   const pieces = name.split(' ');
+  if (pieces.length != 2) {
+    throw new Error('Assertion failed');
+  }
   assert(2 === pieces.length);
   return new Person(pieces[0], pieces[1]);
 };

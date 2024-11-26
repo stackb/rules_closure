@@ -36,7 +36,6 @@ closure_js_library(
     suppress = ["moduleLoad"],
     deps = [
         ":person",
-        "@com_google_javascript_closure_library//closure/goog/asserts",
     ],
 )
 
