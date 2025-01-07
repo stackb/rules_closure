@@ -19,6 +19,5 @@ goog.require('io.bazel.rules.closure.protobuf.Example');
 
 function testExample() {
   var msg = new io.bazel.rules.closure.protobuf.Example('value');
-  msg.field();
-  assertHTMLEquals('value', msg.field());
+  assertEquals('value', msg.field());
 }

@@ -52,7 +52,7 @@ closure_js_test(
     ],
     deps = [
         ":foo",
-        "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
+        "//closure/testing/library:testsuite",
     ],
 )
 
@@ -95,7 +95,7 @@ closure_js_test(
     deps = [
         ":baz",
         ":foo",
-        "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
+        "//closure/testing/library:testsuite",
     ],
 )
 
@@ -131,6 +131,6 @@ closure_js_test(
     ],
     deps = [
         ":bat",
-        "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
+        "//closure/testing/library:testsuite",
     ],
 )
