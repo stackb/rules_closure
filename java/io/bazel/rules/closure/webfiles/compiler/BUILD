@@ -12,17 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-licenses(["notice"])
-
 load("@rules_java//java:defs.bzl", "java_library")
+
+licenses(["notice"])
 
 java_library(
     name = "compiler",
     srcs = glob(["*.java"]),
     visibility = ["//:__subpackages__"],
     deps = [
-        "@com_google_closure_stylesheets",
-        "@com_google_dagger",
-        "@com_google_guava",
+        "@google_bazel_common//third_party/java/dagger",
+        "@google_bazel_common//third_party/java/guava",
+        "@maven//:com_google_closure_stylesheets_closure_stylesheets",
+        "@maven//:javax_inject_javax_inject",
     ],
 )

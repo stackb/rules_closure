@@ -59,69 +59,19 @@ notes.
 
 ## Setup
 
-First you must [install Bazel]. Then you add the following to your `WORKSPACE`
-file:
+First you must [install Bazel]. 
 
-```starlark
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+Then you add the following to your MODULE.bazel file:
 
-http_archive(
-    name = "io_bazel_rules_closure",
-    sha256 = "9498e57368efb82b985db1ed426a767cbf1ba0398fd7aed632fc3908654e1b1e",
-    strip_prefix = "rules_closure-0.12.0",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_closure/archive/0.12.0.tar.gz",
-        "https://github.com/bazelbuild/rules_closure/archive/0.12.0.tar.gz",
-    ],
-)
-
-load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
-rules_closure_dependencies()
-rules_closure_toolchains()
-
-# Only needed if you want to run your tests on headless Chrome
-load("@io_bazel_rules_closure//closure:defs.bzl", "setup_web_test_repositories")
-setup_web_test_repositories(
-    chromium = True,
-)
+```bzl
+bazel_dep(name = "io_bazel_rules_closure")
 ```
+The root module has to declare the same override for rules_webtesting,
+rules_scala, and google_bazel_common temporarily until they are registered
+in BCR.
 
 You are not required to install the Closure Tools, PhantomJS, or anything else
 for that matter; they will be fetched automatically by Bazel.
-
-### Overriding Dependency Versions
-
-When you call `rules_closure_dependencies()` in your `WORKSPACE` file, it causes a
-few dozen external dependencies to be added to your project, e.g. Guava, Guice,
-JSR305, etc. You might need to customize this behavior.
-
-To override the version of any dependency, modify your `WORKSPACE` file to pass
-`omit_<dependency_name>=True` to `rules_closure_dependencies()`. Next define your
-custom dependency version. A full list of dependencies is available from
-[repositories.bzl]. For example, to override the version of Guava:
-
-```starlark
-load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
-rules_closure_dependencies(
-    omit_com_google_guava=True,
-)
-rules_closure_toolchains()
-
-load("@bazel_tools//tools/build_defs/repo:java.bzl", "java_import_external")
-java_import_external(
-    name = "com_google_guava",
-    licenses = ["notice"],  # Apache 2.0
-    jar_urls = [
-        "https://mirror.bazel.build/repo1.maven.org/maven2/com/google/guava/guava/24.1-jre/guava-24.1-jre.jar",
-        "https://repo1.maven.org/maven2/com/google/guava/guava/24.1-jre/guava-24.1-jre.jar",
-    ],
-    jar_sha256 = "31bfe27bdf9cba00cb4f3691136d3bc7847dfc87bfe772ca7a9eb68ff31d79f5",
-    exports = [
-        "@com_google_code_findbugs_jsr305",
-        "@com_google_errorprone_error_prone_annotations",
-    ],
-)
-```
 
 ## Examples
 
@@ -654,7 +604,7 @@ This rule can be referenced as though it were the following:
 
 - **defs:** (List of strings; optional) Specifies additional flags to be passed
   to the Closure Stylesheets compiler. To see what flags are available, run:
-  `bazel run @com_google_closure_stylesheets//:ClosureCommandLineCompiler -- --help`
+  `bazel run //closure/stylesheets:ClosureCommandLineCompiler -- --help`
 
 
 [Bazel]: http://bazel.build/
@@ -695,5 +645,3 @@ This rule can be referenced as though it were the following:
 [output-wrapper-faq]: https://github.com/google/closure-compiler/wiki/FAQ#when-using-advanced-optimizations-closure-compiler-adds-new-variables-to-the-global-scope-how-do-i-make-sure-my-variables-dont-collide-with-other-scripts-on-the-page
 [phantomjs-bug]: https://github.com/ariya/phantomjs/issues/14028
 [phantomjs_test]: #phantomjs_test
-[repositories.bzl]: https://github.com/bazelbuild/rules_closure/tree/master/closure/repositories.bzl
-[verbose]: https://github.com/google/closure-library/blob/master/closure/goog/html/safehtml.js
