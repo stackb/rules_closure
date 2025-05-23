@@ -21,14 +21,8 @@ bazel_dep(
 
 bazel_dep(
     name = "protobuf",
-    version = "29.1",
+    version = "31.0",
     repo_name = "com_google_protobuf",
-)
-
-#TODO(mollyibot):Remove this after switching to new protobuf release
-bazel_dep(
-    name = "abseil-cpp",
-    version = "20240722.0",
 )
 
 bazel_dep(
