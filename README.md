@@ -64,7 +64,7 @@ First you must [install Bazel].
 Then you add the following to your MODULE.bazel file:
 
 ```bzl
-bazel_dep(name = "io_bazel_rules_closure")
+bazel_dep(name = "io_bazel_rules_closure", version = "0.15.0")
 ```
 The root module has to declare the same override for rules_webtesting,
 rules_scala, and google_bazel_common temporarily until they are registered
