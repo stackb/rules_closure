@@ -64,7 +64,7 @@ First you must [install Bazel].
 Then you add the following to your MODULE.bazel file:
 
 ```bzl
-bazel_dep(name = "io_bazel_rules_closure", version = "0.15.0")
+bazel_dep(name = "rules_closure", version = "0.15.0")
 ```
 The root module has to declare the same override for rules_webtesting,
 rules_scala, and google_bazel_common temporarily until they are registered
@@ -88,7 +88,7 @@ Please see the test directories within this project for concrete examples of usa
 ## closure\_js\_library
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library")
+load("@rules_closure//closure:defs.bzl", "closure_js_library")
 closure_js_library(name, srcs, data, deps, exports, suppress, convention,
                    no_closure_library)
 ```
@@ -188,7 +188,7 @@ This rule can be referenced as though it were the following:
 ## closure\_js\_binary
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary")
+load("@rules_closure//closure:defs.bzl", "closure_js_binary")
 closure_js_binary(name, deps, css, debug, language, entry_points,
                   dependency_mode, compilation_level, formatting,
                   output_wrapper, property_renaming_report, defs)
@@ -301,7 +301,7 @@ This rule can be referenced as though it were the following:
 - **defs:** (List of strings; optional) Specifies additional flags to be passed
   to the Closure Compiler, e.g. `"--hide_warnings_for=some/path/"`. To see what
   flags are available, run:
-  `bazel run @io_bazel_rules_closure//third_party/java/jscomp:main -- --help`
+  `bazel run @rules_closure//third_party/java/jscomp:main -- --help`
 
 ### Support for AngularJS
 
@@ -322,7 +322,7 @@ closure_js_binary(
 ## closure\_js\_test
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_test")
+load("@rules_closure//closure:defs.bzl", "closure_js_test")
 closure_js_test(name, srcs, data, deps, css, html, language, suppress,
                 compilation_level, entry_points, defs)
 ```
@@ -394,7 +394,7 @@ This rule can be referenced as though it were the following:
 ## phantomjs\_test
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "phantomjs_test")
+load("@rules_closure//closure:defs.bzl", "phantomjs_test")
 phantomjs_test(name, data, deps, html, harness, runner)
 ```
 
@@ -423,17 +423,17 @@ This rule can be referenced as though it were the following:
   `<script>` tag based on a depth-first preordering.
 
 - **html:** (Label; optional; default is
-  `"@io_bazel_rules_closure//closure/testing:empty.html"`) HTML file containing
+  `"@rules_closure//closure/testing:empty.html"`) HTML file containing
   DOM structure of virtual web page *before* `<script>` tags are automatically
   inserted. Do not include a doctype in this file.
 
 - **harness:** (Label; required; default is
-  `"@io_bazel_rules_closure//closure/testing:phantomjs_harness"`) JS binary or
+  `"@rules_closure//closure/testing:phantomjs_harness"`) JS binary or
   library exporting a single source file, to be used as the PhantomJS outer
   script.
 
 - **runner:** (Label; optional; default is
-  `"@io_bazel_rules_closure//closure/testing:phantomjs_jsunit_runner"`) Same as
+  `"@rules_closure//closure/testing:phantomjs_jsunit_runner"`) Same as
   `deps` but guaranteed to be loaded inside the virtual web page last. This
   should run whatever tests got loaded by `deps` and then invoke `callPhantom`
   to report the result to the `harness`.
@@ -442,7 +442,7 @@ This rule can be referenced as though it were the following:
 ## closure\_css\_library
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_css_library")
+load("@rules_closure//closure:defs.bzl", "closure_css_library")
 closure_css_library(name, srcs, data, deps)
 ```
 
@@ -505,7 +505,7 @@ This rule can be referenced as though it were the following:
 ## closure\_css\_binary
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_css_binary")
+load("@rules_closure//closure:defs.bzl", "closure_css_binary")
 closure_css_binary(name, deps, renaming, debug, defs)
 ```
 
