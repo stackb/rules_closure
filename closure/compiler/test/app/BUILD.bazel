@@ -1,0 +1,76 @@
+load(
+    "@rules_closure//closure:defs.bzl",
+    "closure_css_binary",
+    "closure_css_library",
+    "closure_js_binary",
+    "closure_js_library",
+    "closure_js_template_library",
+    "web_library",
+)
+
+package(default_testonly = True)
+
+closure_css_library(
+    name = "css",
+    srcs = ["index.css"],
+)
+
+closure_css_binary(
+    name = "style",
+    debug = False,
+    renaming = True,
+    visibility = ["//visibility:public"],
+    deps = [":css"],
+)
+
+closure_js_template_library(
+    name = "soy",
+    srcs = ["app.soy"],
+)
+
+closure_js_library(
+    name = "app",
+    srcs = ["app.js"],
+    deps = [
+        ":soy",
+        "//closure/goog/dom",
+        "//closure/goog/ui:component",
+    ],
+)
+
+closure_js_library(
+    name = "main",
+    srcs = ["main.js"],
+    deps = [":app"],
+)
+
+closure_js_binary(
+    name = "bundle",
+    compilation_level = "ADVANCED",
+    css = ":style",
+    debug = False,
+    defs = [
+        "--define=GREETING=world",
+    ],
+    entry_points = ["goog:example.main"],
+    output_wrapper = "(function(){%output%}).call(this);",
+    deps = [":main"],
+)
+
+web_library(
+    name = "assets",
+    srcs = [
+        "bundle.js",
+        "style.css",
+    ],
+    path = "/",
+)
+
+# ProTip: bazel run //closure/compiler/test/app:web
+web_library(
+    name = "web",
+    srcs = ["index.html"],
+    path = "/",
+    port = "8080",
+    deps = [":assets"],
+)
