@@ -10,18 +10,18 @@ bazel_dep(
 
 bazel_dep(
     name = "platforms",
-    version = "0.0.5",
+    version = "0.0.11",
 )
 
 # TODO(mollyibot): Remove this in the future.
 bazel_dep(
     name = "rules_proto",
-    version = "7.0.2",
+    version = "7.1.0",
 )
 
 bazel_dep(
     name = "protobuf",
-    version = "31.0",
+    version = "32.1",
     repo_name = "com_google_protobuf",
 )
 
@@ -45,12 +45,95 @@ bazel_dep(
 ##### Java dependencies #####
 bazel_dep(
     name = "rules_java",
-    version = "8.6.1",
+    version = "8.15.2",
 )
 
 bazel_dep(
     name = "rules_jvm_external",
-    version = "6.6",
+    version = "6.8",
+)
+
+bazel_dep(
+    name = "build_stack_rules_proto",
+    version = "4.1.0",
+)
+local_path_override(
+    module_name = "build_stack_rules_proto",
+    path = "/Users/pcj/go/src/github.com/stackb/rules_proto",
+)
+
+bazel_dep(
+    name = "com_google_closure_templates",
+)
+
+local_path_override(
+    module_name = "com_google_closure_templates",
+    path = "/Users/pcj/go/src/github.com/google/closure-templates",
+)
+
+bazel_dep(
+    name = "protobuf_javascript",
+)
+
+# Commit: cbeded24c7ebf62ed4d83ead2638c41b3078033b
+# Date: 2025-08-20 03:18:20 +0000 UTC
+# URL: https://github.com/protocolbuffers/protobuf-javascript/commit/cbeded24c7ebf62ed4d83ead2638c41b3078033b
+#
+# Fixup scorecards.yml
+#
+# - try to fix 'invalid name' error for upload file artifact by just removing the setting; it's optional and will default to 'artifact'
+#
+# - bump various action versions
+# Size: 401416 (401 kB)
+archive_override(
+    module_name = "protobuf_javascript",
+    sha256 = "0949300ca6395d6a190a9027f7151825222147febf9b5225101ccd715d22bbed",
+    strip_prefix = "protobuf-javascript-cbeded24c7ebf62ed4d83ead2638c41b3078033b",
+    urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/cbeded24c7ebf62ed4d83ead2638c41b3078033b.tar.gz"],
+    build_file_content = """
+filegroup(
+    name = "proto_js_library_files",
+    srcs = [
+        "asserts.js",
+        "bytestring.js",
+        "debug.js",
+        "internal_bytes.js",
+        "internal_options.js",
+        "internal_public.js",
+        "map.js",
+        "message.js",
+        "unsafe_bytestring.js",
+        "binary/any_field_type.js",
+        "binary/arith.js",
+        "binary/binary_constants.js",
+        "binary/bytesource.js",
+        "binary/decoder.js",
+        "binary/decoder_alias.js",
+        "binary/encoder.js",
+        "binary/encoder_alias.js",
+        "binary/errors.js",
+        "binary/internal_buffer.js",
+        "binary/reader.js",
+        "binary/reader_alias.js",
+        "binary/repeated_field_type.js",
+        "binary/scalar_field_type.js",
+        "binary/test_utils.js",
+        "binary/utf8.js",
+        "binary/utils.js",
+        "binary/writer.js",
+        "binary/writer_alias.js",
+    ],
+    visibility = ["//visibility:public"],
+)
+""",
+)
+
+bazel_dep(
+    name = "rules_tsickle",
+)
+local_path_override(
+    module_name = "rules_tsickle",
+    path = "/Users/pcj/go/src/github.com/stackb/rules_tsickle",
 )
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
@@ -87,10 +170,12 @@ use_repo(maven, "maven")
 ##### Python dependencies #####
 bazel_dep(
     name = "rules_python",
-    version = "1.0.0",
+    version = "1.4.1",
 )
 
 ##### Other dependencies #####
+# http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
 http_file(
@@ -162,3 +247,13 @@ platform_http_file(
         "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip",
     ],
 )
+
+# bazel_dep(name = "aspect_rules_ts", version = "3.7.0")
+
+# rules_ts_ext = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext", dev_dependency = True)
+
+# rules_ts_ext.deps(
+#     ts_version_from = "@rules_tsickle//:package.json",
+# )
+
+# use_repo(rules_ts_ext, "npm_typescript")

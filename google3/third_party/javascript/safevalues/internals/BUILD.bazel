@@ -1,0 +1,18 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "internals",
+    srcs = [
+        "attribute_impl.ts",
+        "html_impl.ts",
+        "pure.ts",
+        "resource_url_impl.ts",
+        "script_impl.ts",
+        "secrets.ts",
+        "string_literal.ts",
+        "style_sheet_impl.ts",
+        "trusted_types.ts",
+        "trusted_types_typings.d.ts",
+    ],
+    visibility = ["//google3/third_party/javascript/safevalues/restricted:__pkg__"],
+)

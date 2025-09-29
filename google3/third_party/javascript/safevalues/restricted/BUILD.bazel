@@ -1,0 +1,12 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "restricted",
+    srcs = [
+        "legacy.ts",
+        "reviewed.ts",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

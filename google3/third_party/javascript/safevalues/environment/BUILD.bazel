@@ -1,0 +1,8 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "internals",
+    srcs = [
+        "dev.ts",
+    ],
+)

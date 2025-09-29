@@ -1,0 +1,51 @@
+# Copyright 2016 The Closure Rules Authors. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load("@//closure/compiler:closure_js_library.bzl", "closure_js_library")
+load("@build_stack_rules_proto//rules:proto_plugin.bzl", "proto_plugin")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])
+
+closure_js_library(
+    name = "jspb",
+    srcs = ["@protobuf_javascript//:proto_js_library_files"],
+    suppress = [
+        "analyzerChecks",
+        "lintChecks",
+        "reportUnknownTypes",
+        "strictCheckTypes",
+        "deprecated",
+    ],
+    deps = [
+        "//closure/goog/array",
+        "//closure/goog/asserts",
+        "//closure/goog/crypt",
+        "//closure/goog/crypt:base64",
+        "//closure/goog/object",
+        "//closure/goog/string",
+        "//closure/goog/useragent",
+    ],
+)
+
+proto_plugin(
+    name = "protoc-gen-js",
+    options = [
+        "import_style=closure",
+        "library={PACKAGE}/{PROTO_LIBRARY_BASENAME}",
+    ],
+    tool = "@protobuf_javascript//generator:protoc-gen-js",
+    visibility = ["//visibility:public"],
+)

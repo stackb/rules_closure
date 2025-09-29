@@ -1,34 +1,32 @@
 {namespace soy.example.app}
 
-{template .Header}
+{template header}
   {@param title: string}
 <h1 class="{css('app-header')}">
     {$title}
 </h1>
 {/template}
 
-{template .Section}
+{template section kind="html<section>"}
   {@param title: string}
-  {@param content: html}
+  {@param body: html}
 <section class="{css('app-section')}">
-  <div class="Subhead border-0">
-    <a name="{$anchor}"></a>
-    <div class="Subhead-heading">{$title}</div>
-    <div class="Subhead-description">{$subtitle}</div>
-  </div>
-  {$content}
+  <h2>{$title}</h2>
+  {$body}
 </section>
 {/template}
 
-{template .Body}
+{template body}
   {@param appName: string}
 <div class="{css('app-body')}">
-    {call .Header}
+    {call header}
         {param title: $appName /}
     {/call}
-    {call .Section}
+    {call section}
         {param title: 'About' /}
+        {param body kind="html"}
         This app demonstrates the composition of a <code>closure_js_binary</code>.
+        {/param}
     {/call}
 </div>
 {/template}

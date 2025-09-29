@@ -34,7 +34,9 @@ closure_js_library(
     deps = [
         ":soy",
         "//closure/goog/dom",
+        "//closure/goog/soy",
         "//closure/goog/ui:component",
+        "//closure/protobuf:jspb",
     ],
 )
 
