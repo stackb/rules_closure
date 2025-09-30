@@ -68,10 +68,10 @@ export function objectUrlFromSafeSource(source: Blob | MediaSource): string {
   }
   const blob = source as Blob;
   if (!isSafeMimeType(blob.type)) {
-    let message = '';
-    if (process.env.NODE_ENV !== 'production') {
-      message = `unsafe blob MIME type: ${blob.type}`;
-    }
+    let message = `unsafe blob MIME type: ${blob.type}`;
+    // if (process.env.NODE_ENV !== 'production') {
+    //   message = `unsafe blob MIME type: ${blob.type}`;
+    // }
     throw new Error(message);
   }
   return URL.createObjectURL(blob);

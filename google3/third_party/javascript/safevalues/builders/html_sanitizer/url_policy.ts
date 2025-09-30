@@ -28,8 +28,8 @@ interface StyleElementOrAttributeUrlPolicyHints {
    * attribute.
    */
   readonly type:
-    | UrlPolicyHintsType.STYLE_ELEMENT
-    | UrlPolicyHintsType.STYLE_ATTRIBUTE;
+  | UrlPolicyHintsType.STYLE_ELEMENT
+  | UrlPolicyHintsType.STYLE_ATTRIBUTE;
   /**
    * The CSS property that attempts to load the resource.
    */

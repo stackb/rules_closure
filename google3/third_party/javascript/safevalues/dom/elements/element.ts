@@ -10,23 +10,23 @@
  * that are not tied to elements (like location.href or Worker constructor).
  */
 
-import '../../environment/dev.js';
+// import '../../environment/dev.js';
 import {
   SafeAttributePrefix,
   unwrapAttributePrefix,
 } from '../../internals/attribute_impl.js';
-import {SafeHtml, unwrapHtml} from '../../internals/html_impl.js';
-import {TrustedResourceUrl} from '../../internals/resource_url_impl.js';
-import {setAnchorHref} from './anchor.js';
-import {setAreaHref} from './area.js';
-import {setBaseHref} from './base.js';
-import {setButtonFormaction} from './button.js';
-import {setEmbedSrc} from './embed.js';
-import {setFormAction} from './form.js';
-import {setIframeSrc, setIframeSrcdoc} from './iframe.js';
-import {setInputFormaction} from './input.js';
-import {setObjectData} from './object.js';
-import {setScriptSrc} from './script.js';
+import { SafeHtml, unwrapHtml } from '../../internals/html_impl.js';
+import { TrustedResourceUrl } from '../../internals/resource_url_impl.js';
+import { setAnchorHref } from './anchor.js';
+import { setAreaHref } from './area.js';
+import { setBaseHref } from './base.js';
+import { setButtonFormaction } from './button.js';
+import { setEmbedSrc } from './embed.js';
+import { setFormAction } from './form.js';
+import { setIframeSrc, setIframeSrcdoc } from './iframe.js';
+import { setInputFormaction } from './input.js';
+import { setObjectData } from './object.js';
+import { setScriptSrc } from './script.js';
 
 type ScriptOrStyle =
   | HTMLScriptElement
@@ -112,9 +112,9 @@ export function setElementPrefixedAttribute(
 ): void {
   if (attrPrefixes.length === 0) {
     let message = '';
-    if (process.env.NODE_ENV !== 'production') {
-      message = 'No prefixes are provided';
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    message = 'No prefixes are provided';
+    // }
     throw new Error(message);
   }
   const prefixes = attrPrefixes.map((s) => unwrapAttributePrefix(s));
@@ -131,13 +131,13 @@ function throwIfScriptOrStyle(element: Element): void {
   let message = '';
   const tagName = element.tagName;
   if (/^(script|style)$/i.test(tagName)) {
-    if (process.env.NODE_ENV !== 'production') {
-      if (tagName.toLowerCase() === 'script') {
-        message = 'Use setScriptTextContent with a SafeScript.';
-      } else {
-        message = 'Use setStyleTextContent with a SafeStyleSheet.';
-      }
+    // if (process.env.NODE_ENV !== 'production') {
+    if (tagName.toLowerCase() === 'script') {
+      message = 'Use setScriptTextContent with a SafeScript.';
+    } else {
+      message = 'Use setStyleTextContent with a SafeStyleSheet.';
     }
+    // }
     throw new Error(message);
   }
 }
@@ -196,7 +196,7 @@ export function setElementAttribute(
   if (el.namespaceURI !== 'http://www.w3.org/1999/xhtml') {
     throw new Error(
       `Cannot set attribute '${attr}' on '${el.tagName}'.` +
-        `Element is not in the HTML namespace`,
+      `Element is not in the HTML namespace`,
     );
   }
 
@@ -230,7 +230,7 @@ export function setElementAttribute(
     case 'IFRAME sandbox':
       throw new Error(
         "Can't set 'sandbox' on iframe tags. " +
-          'Use setIframeSrcWithIntent or setIframeSrcdocWithIntent instead',
+        'Use setIframeSrcWithIntent or setIframeSrcdocWithIntent instead',
       );
     case 'INPUT formaction':
       setInputFormaction(el as HTMLInputElement, value as string);
@@ -238,12 +238,12 @@ export function setElementAttribute(
     case 'LINK href':
       throw new Error(
         "Can't set 'href' attribute on link tags. " +
-          'Use setLinkHrefAndRel instead',
+        'Use setLinkHrefAndRel instead',
       );
     case 'LINK rel':
       throw new Error(
         "Can't set 'rel' attribute on link tags. " +
-          'Use setLinkHrefAndRel instead',
+        'Use setLinkHrefAndRel instead',
       );
     case 'OBJECT data':
       setObjectData(el as HTMLObjectElement, value as TrustedResourceUrl);
@@ -255,7 +255,7 @@ export function setElementAttribute(
       if (/^on./.test(attr)) {
         throw new Error(
           `Attribute "${attr}" looks like an event handler attribute. ` +
-            `Please use a safe alternative like addEventListener instead.`,
+          `Please use a safe alternative like addEventListener instead.`,
         );
       }
       el.setAttribute(attr, value as string);

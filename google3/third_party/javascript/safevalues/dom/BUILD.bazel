@@ -1,0 +1,12 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "dom",
+    srcs = ["index.ts"],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/dom/elements",
+    ],
+)

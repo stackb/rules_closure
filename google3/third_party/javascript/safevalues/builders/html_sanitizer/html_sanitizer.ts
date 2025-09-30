@@ -4,17 +4,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../../environment/dev.js';
-import {SafeHtml} from '../../internals/html_impl.js';
-import {pure} from '../../internals/pure.js';
-import {ensureTokenIsValid, secretToken} from '../../internals/secrets.js';
-import {nodeToHtmlInternal} from '../html_builders.js';
-import {restrictivelySanitizeUrl} from '../url_builders.js';
+// import '../../environment/dev.js';
+import { SafeHtml } from '../../internals/html_impl.js';
+import { pure } from '../../internals/pure.js';
+import { ensureTokenIsValid, secretToken } from '../../internals/secrets.js';
+import { nodeToHtmlInternal } from '../html_builders.js';
+import { restrictivelySanitizeUrl } from '../url_builders.js';
 
-import {CSS_ISOLATION_STYLESHEET} from './css/css_isolation.js';
-import {createInertFragment} from './inert_fragment.js';
-import {getNodeName, isElement, isText} from './no_clobber.js';
-import {DEFAULT_SANITIZER_TABLE} from './sanitizer_table/default_sanitizer_table.js';
+import { CSS_ISOLATION_STYLESHEET } from './css/css_isolation.js';
+import { createInertFragment } from './inert_fragment.js';
+import { getNodeName, isElement, isText } from './no_clobber.js';
+import { DEFAULT_SANITIZER_TABLE } from './sanitizer_table/default_sanitizer_table.js';
 import {
   AttributePolicyAction,
   SanitizerTable,
@@ -78,17 +78,17 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
   }
 
   sanitizeAssertUnchanged(html: string): SafeHtml {
-    if (process.env.NODE_ENV !== 'production') {
-      this.changes = [];
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   this.changes = [];
+    // }
     const sanitizedHtml = this.sanitize(html);
-    if (process.env.NODE_ENV !== 'production' && this.changes.length !== 0) {
-      throw new Error(
-        `Unexpected change to HTML value as a result of sanitization. ` +
-          `Input: "${html}", sanitized output: "${sanitizedHtml}"\n` +
-          `List of changes:${this.changes.join('\n')}`,
-      );
-    }
+    // if (process.env.NODE_ENV !== 'production' && this.changes.length !== 0) {
+    //   throw new Error(
+    //     `Unexpected change to HTML value as a result of sanitization. ` +
+    //       `Input: "${html}", sanitized output: "${sanitizedHtml}"\n` +
+    //       `List of changes:${this.changes.join('\n')}`,
+    //   );
+    // }
     return sanitizedHtml;
   }
 
@@ -115,7 +115,7 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
   ): DocumentFragment {
     const elem = document.createElement('safevalues-with-css');
     const mode = this.openShadow ? 'open' : 'closed';
-    const shadow = elem.attachShadow({mode});
+    const shadow = elem.attachShadow({ mode });
     const sanitized = this.sanitizeToFragmentInternal(
       htmlWithCss,
       inertDocument,
@@ -172,9 +172,9 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
         sanitizedNode = this.sanitizeElementNode(currentNode, inertDocument);
       } else {
         let message = '';
-        if (process.env.NODE_ENV !== 'production') {
-          message = 'Node is not of type text or element';
-        }
+        // if (process.env.NODE_ENV !== 'production') {
+        message = 'Node is not of type text or element';
+        // }
         throw new Error(message);
       }
 
@@ -212,7 +212,7 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
     const elementName = getNodeName(elementNode);
     const newNode = inertDocument.createElement(elementName);
     const dirtyAttributes = elementNode.attributes;
-    for (const {name, value} of dirtyAttributes) {
+    for (const { name, value } of dirtyAttributes) {
       const policy = this.sanitizerTable.getAttributePolicy(name, elementName);
       if (!this.satisfiesAllConditions(policy.conditions, dirtyAttributes)) {
         this.recordChange(
@@ -226,11 +226,11 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
           setAttribute(newNode, name, value);
           break;
         case AttributePolicyAction.KEEP_AND_SANITIZE_URL:
-          if (process.env.NODE_ENV !== 'production') {
-            throw new Error(
-              `All KEEP_AND_SANITIZE_URL cases in the safevalues sanitizer should go through the navigation or resource url policy cases. Got ${name} on element ${elementName}.`,
-            );
-          }
+          // if (process.env.NODE_ENV !== 'production') {
+          //   throw new Error(
+          //     `All KEEP_AND_SANITIZE_URL cases in the safevalues sanitizer should go through the navigation or resource url policy cases. Got ${name} on element ${elementName}.`,
+          //   );
+          // }
           throw new Error();
         case AttributePolicyAction.KEEP_AND_NORMALIZE:
           // We don't consider changing the case of an attribute value to be a
@@ -273,7 +273,7 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
               elementName,
             };
             const srcset = parseSrcset(value);
-            const sanitizedSrcset: Srcset = {parts: []};
+            const sanitizedSrcset: Srcset = { parts: [] };
             for (const part of srcset.parts) {
               const url = parseUrl(part.url);
               const sanitizedUrl = this.resourceUrlPolicy(url, hints);
@@ -323,12 +323,12 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
           this.recordChange(`Attribute: ${name} was dropped`);
           break;
         default:
-          if (process.env.NODE_ENV !== 'production') {
-            checkExhaustive(
-              policy.policyAction,
-              'Unhandled AttributePolicyAction case',
-            );
-          }
+        // if (process.env.NODE_ENV !== 'production') {
+        //   checkExhaustive(
+        //     policy.policyAction,
+        //     'Unhandled AttributePolicyAction case',
+        //   );
+        // }
       }
     }
     return newNode;
@@ -361,9 +361,9 @@ export class HtmlSanitizerImpl implements HtmlSanitizer, CssSanitizer {
   }
 
   private recordChange(errorMessage: string) {
-    if (process.env.NODE_ENV !== 'production') {
-      this.changes.push(errorMessage);
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   this.changes.push(errorMessage);
+    // }
   }
 
   private satisfiesAllConditions(
@@ -419,9 +419,9 @@ export function parseSrcset(srcset: string): Srcset {
   const parts: SrcsetPart[] = [];
   for (const part of srcset.split(',')) {
     const [url, descriptor] = part.trim().split(/\s+/, 2);
-    parts.push({url, descriptor});
+    parts.push({ url, descriptor });
   }
-  return {parts};
+  return { parts };
 }
 
 /**
@@ -434,7 +434,7 @@ export function serializeSrcset(srcset: Srcset): string {
   return (
     srcset.parts
       .map((part) => {
-        const {url, descriptor} = part;
+        const { url, descriptor } = part;
         return `${url}${descriptor ? ` ${descriptor}` : ''}`;
       })
       // We always add whitespaces around the parts to remove the ambiguity of

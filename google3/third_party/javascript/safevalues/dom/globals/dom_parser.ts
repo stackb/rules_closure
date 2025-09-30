@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../../environment/dev.js';
+// import '../../environment/dev.js';
 import {
   createHtmlInternal,
   SafeHtml,
@@ -38,9 +38,9 @@ export function domParserParseXml(parser: DOMParser, xml: string): XMLDocument {
     const ns = (currentNode as Element).namespaceURI;
     if (isUnsafeNamespace(ns)) {
       let message = 'unsafe XML';
-      if (process.env.NODE_ENV !== 'production') {
-        message += ` - attempted to parse an XML document containing an element with namespace ${ns}. Parsing HTML, SVG or MathML content is unsafe because it may lead to XSS when the content is appended to the document.`;
-      }
+      // if (process.env.NODE_ENV !== 'production') {
+      //   message += ` - attempted to parse an XML document containing an element with namespace ${ns}. Parsing HTML, SVG or MathML content is unsafe because it may lead to XSS when the content is appended to the document.`;
+      // }
       throw new Error(message);
     }
   }

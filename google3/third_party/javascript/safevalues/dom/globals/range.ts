@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {SafeHtml, unwrapHtml} from '../../internals/html_impl.js';
+import { SafeHtml, unwrapHtml } from '../../internals/html_impl.js';
 
 /** Safely creates a contextualFragment. */
 export function rangeCreateContextualFragment(

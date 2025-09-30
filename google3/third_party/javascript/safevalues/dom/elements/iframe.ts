@@ -8,7 +8,7 @@
  * @fileoverview Safe iframe helpers and go/intents-for-iframes-for-closure
  */
 
-import {SafeHtml, unwrapHtml} from '../../internals/html_impl.js';
+import { SafeHtml, unwrapHtml } from '../../internals/html_impl.js';
 import {
   TrustedResourceUrl,
   unwrapResourceUrl,

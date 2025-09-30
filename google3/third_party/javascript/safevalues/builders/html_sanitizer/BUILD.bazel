@@ -1,0 +1,30 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "html_sanitizer",
+    srcs = [
+        "default_css_sanitizer.ts",
+        "html_sanitizer.ts",
+        "html_sanitizer_builder.ts",
+        "inert_fragment.ts",
+        "no_clobber.ts",
+        "url_policy.ts",
+        "css/allowlists.ts",
+        "css/css_isolation.ts",
+        "css/sanitizer.ts",
+        "css/serializer.ts",
+        "css/tokenizer.ts",
+        "css/tokens.ts",
+        # "css/serializer_test_data.ts",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/builders",
+        "//google3/third_party/javascript/safevalues/builders/html_sanitizer/sanitizer_table",
+        "//google3/third_party/javascript/safevalues/dom/elements",
+        "//google3/third_party/javascript/safevalues/dom/globals",
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

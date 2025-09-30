@@ -12,8 +12,8 @@
  * a circular dependency.
  */
 
-import {pure} from '../../internals/pure.js';
-import {CssSanitizerBuilder} from './html_sanitizer_builder.js';
+import { pure } from '../../internals/pure.js';
+import { CssSanitizerBuilder } from './html_sanitizer_builder.js';
 const defaultCssSanitizer = /* #__PURE__ */ pure(() =>
   new CssSanitizerBuilder().build(),
 );

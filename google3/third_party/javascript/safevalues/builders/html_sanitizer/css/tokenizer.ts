@@ -135,15 +135,15 @@ class Tokenizer {
       //
       // When we add the whitespace then ":ho/**/st" will be serialized as
       // ":ho st", which is safe.
-      return {tokenKind: CssTokenKind.WHITESPACE};
+      return { tokenKind: CssTokenKind.WHITESPACE };
     }
     const codePoint = this.nextInputCodePoint();
     this.consumeTheNextInputCodePoint();
     if (codePoint === EOF) {
-      return {tokenKind: CssTokenKind.EOF};
+      return { tokenKind: CssTokenKind.EOF };
     } else if (this.isWhitespace(codePoint)) {
       this.consumeAsMuchWhitespaceAsPossible();
-      return {tokenKind: CssTokenKind.WHITESPACE};
+      return { tokenKind: CssTokenKind.WHITESPACE };
     } else if (codePoint === "'" || codePoint === '"') {
       return this.consumeString(codePoint);
     } else if (codePoint === '#') {
@@ -160,51 +160,51 @@ class Tokenizer {
           value: this.consumeIdentSequence(),
         };
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '#'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '#' };
       }
     } else if (codePoint === '(') {
-      return {tokenKind: CssTokenKind.OPEN_PAREN};
+      return { tokenKind: CssTokenKind.OPEN_PAREN };
     } else if (codePoint === ')') {
-      return {tokenKind: CssTokenKind.CLOSE_PAREN};
+      return { tokenKind: CssTokenKind.CLOSE_PAREN };
     } else if (codePoint === '+') {
       if (this.streamStartsWithANumber()) {
         this.reconsumeTheCurrentInputCodePoint();
         return this.consumeNumericToken();
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '+'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '+' };
       }
     } else if (codePoint === ',') {
-      return {tokenKind: CssTokenKind.COMMA};
+      return { tokenKind: CssTokenKind.COMMA };
     } else if (codePoint === '-') {
       if (this.streamStartsWithANumber()) {
         this.reconsumeTheCurrentInputCodePoint();
         return this.consumeNumericToken();
       } else if (this.nextNInputCodePoints(2) === '->') {
         this.consumeNInputCodePoints(2);
-        return {tokenKind: CssTokenKind.CDC};
+        return { tokenKind: CssTokenKind.CDC };
       } else if (this.streamStartsWithAnIdentSequence()) {
         this.reconsumeTheCurrentInputCodePoint();
         return this.consumeIdentLikeToken();
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '-'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '-' };
       }
     } else if (codePoint === '.') {
       if (this.streamStartsWithANumber()) {
         this.reconsumeTheCurrentInputCodePoint();
         return this.consumeNumericToken();
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '.'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '.' };
       }
     } else if (codePoint === ':') {
-      return {tokenKind: CssTokenKind.COLON};
+      return { tokenKind: CssTokenKind.COLON };
     } else if (codePoint === ';') {
-      return {tokenKind: CssTokenKind.SEMICOLON};
+      return { tokenKind: CssTokenKind.SEMICOLON };
     } else if (codePoint === '<') {
       if (this.nextNInputCodePoints(3) === '!--') {
         this.consumeNInputCodePoints(3);
-        return {tokenKind: CssTokenKind.CDO};
+        return { tokenKind: CssTokenKind.CDO };
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '<'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '<' };
       }
     } else if (codePoint === '@') {
       if (
@@ -213,25 +213,25 @@ class Tokenizer {
         )
       ) {
         const ident = this.consumeIdentSequence();
-        return {tokenKind: CssTokenKind.AT_KEYWORD, name: ident};
+        return { tokenKind: CssTokenKind.AT_KEYWORD, name: ident };
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '@'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '@' };
       }
     } else if (codePoint === '\\') {
       if (this.streamStartsWithValidEscape()) {
         this.reconsumeTheCurrentInputCodePoint();
         return this.consumeIdentLikeToken();
       } else {
-        return {tokenKind: CssTokenKind.DELIM, codePoint: '\\'};
+        return { tokenKind: CssTokenKind.DELIM, codePoint: '\\' };
       }
     } else if (codePoint === '[') {
-      return {tokenKind: CssTokenKind.OPEN_SQUARE};
+      return { tokenKind: CssTokenKind.OPEN_SQUARE };
     } else if (codePoint === ']') {
-      return {tokenKind: CssTokenKind.CLOSE_SQUARE};
+      return { tokenKind: CssTokenKind.CLOSE_SQUARE };
     } else if (codePoint === '{') {
-      return {tokenKind: CssTokenKind.OPEN_CURLY};
+      return { tokenKind: CssTokenKind.OPEN_CURLY };
     } else if (codePoint === '}') {
-      return {tokenKind: CssTokenKind.CLOSE_CURLY};
+      return { tokenKind: CssTokenKind.CLOSE_CURLY };
     } else if (this.isDigit(codePoint)) {
       this.reconsumeTheCurrentInputCodePoint();
       return this.consumeNumericToken();
@@ -239,7 +239,7 @@ class Tokenizer {
       this.reconsumeTheCurrentInputCodePoint();
       return this.consumeIdentLikeToken();
     } else {
-      return {tokenKind: CssTokenKind.DELIM, codePoint};
+      return { tokenKind: CssTokenKind.DELIM, codePoint };
     }
   }
 
@@ -373,7 +373,7 @@ class Tokenizer {
       ) {
         // Function names are case-insensitive in CSS so instead of returning
         // "url" in its original casing, we just lowercase it.
-        return {tokenKind: CssTokenKind.FUNCTION, lowercaseName: 'url'};
+        return { tokenKind: CssTokenKind.FUNCTION, lowercaseName: 'url' };
       } else {
         return this.consumeUrlToken();
       }
@@ -386,7 +386,7 @@ class Tokenizer {
         lowercaseName: ident.toLowerCase(),
       };
     }
-    return {tokenKind: CssTokenKind.IDENT, ident};
+    return { tokenKind: CssTokenKind.IDENT, ident };
   }
 
   /**
@@ -454,9 +454,9 @@ class Tokenizer {
   /** Helper function to make `consumeUrlToken` a little more readable. */
   private createFunctionUrlToken(url: string): CssToken[] {
     return [
-      {tokenKind: CssTokenKind.FUNCTION, lowercaseName: 'url'},
-      {tokenKind: CssTokenKind.STRING, value: url},
-      {tokenKind: CssTokenKind.CLOSE_PAREN},
+      { tokenKind: CssTokenKind.FUNCTION, lowercaseName: 'url' },
+      { tokenKind: CssTokenKind.STRING, value: url },
+      { tokenKind: CssTokenKind.CLOSE_PAREN },
     ];
   }
 
@@ -545,9 +545,9 @@ class Tokenizer {
     }
     if (this.nextInputCodePoint() === '%') {
       this.consumeTheNextInputCodePoint();
-      return {tokenKind: CssTokenKind.PERCENTAGE, repr};
+      return { tokenKind: CssTokenKind.PERCENTAGE, repr };
     }
-    return {tokenKind: CssTokenKind.NUMBER, repr};
+    return { tokenKind: CssTokenKind.NUMBER, repr };
   }
 
   private nextTwoInputsPointsAreWhitespace() {

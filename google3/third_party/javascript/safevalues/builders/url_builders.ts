@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../environment/dev.js';
-
 /**
  * Extracts the scheme from the given URL. If the URL is relative, https: is
  * assumed.
@@ -50,9 +48,9 @@ export const IS_NOT_JAVASCRIPT_URL_PATTERN: RegExp =
 export function reportJavaScriptUrl(url: string): boolean {
   const hasJavascriptUrlScheme = !IS_NOT_JAVASCRIPT_URL_PATTERN.test(url);
   if (hasJavascriptUrlScheme) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error(`A URL with content '${url}' was sanitized away.`);
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   console.error(`A URL with content '${url}' was sanitized away.`);
+    // }
   }
   return hasJavascriptUrlScheme;
 }

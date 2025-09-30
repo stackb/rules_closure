@@ -10,12 +10,12 @@
  * interpreted as SafeHtml or SafeScript.
  */
 
-import {createHtmlInternal, SafeHtml} from '../../internals/html_impl.js';
+import { createHtmlInternal, SafeHtml } from '../../internals/html_impl.js';
 import {
   TrustedResourceUrl,
   unwrapResourceUrl,
 } from '../../internals/resource_url_impl.js';
-import {createScriptInternal, SafeScript} from '../../internals/script_impl.js';
+import { createScriptInternal, SafeScript } from '../../internals/script_impl.js';
 import {
   createStyleSheetInternal,
   SafeStyleSheet,

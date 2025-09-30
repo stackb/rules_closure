@@ -1,0 +1,15 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "sanitizer_table",
+    srcs = [
+        "default_sanitizer_table.ts",
+        "sanitizer_table.ts",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

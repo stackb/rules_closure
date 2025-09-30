@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {unwrapUrlOrSanitize, Url} from '../../builders/url_builders.js';
+import { unwrapUrlOrSanitize, Url } from '../../builders/url_builders.js';
 
 /**
  * windowOpen calls {@link Window.open} on the given {@link Window}, given a

@@ -1,0 +1,21 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "builders",
+    srcs = [
+        "attribute_builders.ts",
+        "document_fragment_builders.ts",
+        "html_builders.ts",
+        "resource_url_builders.ts",
+        "script_builders.ts",
+        "sensitive_attributes.ts",
+        "style_sheet_builders.ts",
+        "url_builders.ts",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../environment/dev.js';
-import {assertIsTemplateObject} from '../internals/string_literal.js';
+// import '../environment/dev.js';
+import { assertIsTemplateObject } from '../internals/string_literal.js';
 import {
   createStyleSheetInternal,
   SafeStyleSheet,
@@ -29,18 +29,18 @@ import {
 export function safeStyleSheet(
   templateObj: TemplateStringsArray,
 ): SafeStyleSheet {
-  if (process.env.NODE_ENV !== 'production') {
-    assertIsTemplateObject(templateObj, 0);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   assertIsTemplateObject(templateObj, 0);
+  // }
 
   const styleSheet = templateObj[0];
-  if (process.env.NODE_ENV !== 'production') {
-    if (/</.test(styleSheet)) {
-      throw new Error(
-        `'<' character is forbidden in styleSheet string: ${styleSheet}`,
-      );
-    }
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   if (/</.test(styleSheet)) {
+  //     throw new Error(
+  //       `'<' character is forbidden in styleSheet string: ${styleSheet}`,
+  //     );
+  //   }
+  // }
 
   return createStyleSheetInternal(styleSheet);
 }

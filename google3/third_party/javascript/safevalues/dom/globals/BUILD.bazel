@@ -1,0 +1,24 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "globals",
+    srcs = [
+        "document.ts",
+        "dom_parser.ts",
+        "fetch.ts",
+        "global.ts",
+        "location.ts",
+        "range.ts",
+        "service_worker_container.ts",
+        "url.ts",
+        "window.ts",
+        "worker.ts",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/builders",
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

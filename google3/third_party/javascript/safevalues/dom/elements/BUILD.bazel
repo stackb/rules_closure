@@ -1,0 +1,30 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+
+closure_ts_compile(
+    name = "elements",
+    srcs = [
+        "anchor.ts",
+        "area.ts",
+        "base.ts",
+        "button.ts",
+        "element.ts",
+        "embed.ts",
+        "form.ts",
+        "iframe.ts",
+        "input.ts",
+        "link.ts",
+        "object.ts",
+        "script.ts",
+        "style.ts",
+        "svg.ts",
+        "svg_use.ts",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/builders",
+        "//google3/third_party/javascript/safevalues/dom/globals",
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

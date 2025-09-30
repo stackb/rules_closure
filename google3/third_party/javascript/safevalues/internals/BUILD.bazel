@@ -14,5 +14,7 @@ closure_ts_compile(
         "trusted_types.ts",
         "trusted_types_typings.d.ts",
     ],
-    visibility = ["//google3/third_party/javascript/safevalues/restricted:__pkg__"],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
 )

@@ -4,14 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../environment/dev.js';
+// import '../environment/dev.js';
 import {
   createResourceUrlInternal,
   TrustedResourceUrl,
   unwrapResourceUrl,
 } from '../internals/resource_url_impl.js';
-import {SafeScript, unwrapScript} from '../internals/script_impl.js';
-import {assertIsTemplateObject} from '../internals/string_literal.js';
+import { SafeScript, unwrapScript } from '../internals/script_impl.js';
+import { assertIsTemplateObject } from '../internals/string_literal.js';
+
+const DEBUG = false;
 
 /** Type that we know how to interpolate */
 type Primitive = string | number | boolean;
@@ -38,7 +40,7 @@ function hasValidOrigin(base: string): boolean {
   if (originEnd <= originStart) {
     throw new Error(
       `Can't interpolate data in a url's origin, ` +
-        `Please make sure to fully specify the origin, terminated with '/'.`,
+      `Please make sure to fully specify the origin, terminated with '/'.`,
     );
   }
 
@@ -129,7 +131,7 @@ function getUrlSegments(url: string): UrlSegments {
   const parts = url.split(/[?#]/);
   const params = /[?]/.test(url) ? '?' + parts[1] : '';
   const fragment = /[#]/.test(url) ? '#' + (params ? parts[2] : parts[1]) : '';
-  return {urlPath: parts[0], params, fragment};
+  return { urlPath: parts[0], params, fragment };
 }
 
 /**
@@ -184,9 +186,9 @@ export function trustedResourceUrl(
   ...rest: Primitive[]
 ): TrustedResourceUrl {
   // Check if templateObj is actually from a template literal.
-  if (process.env.NODE_ENV !== 'production') {
-    assertIsTemplateObject(templateObj, rest.length);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   assertIsTemplateObject(templateObj, rest.length);
+  // }
 
   if (rest.length === 0) {
     return createResourceUrlInternal(templateObj[0]);
@@ -194,7 +196,7 @@ export function trustedResourceUrl(
 
   const base = templateObj[0].toLowerCase();
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (DEBUG) {
     if (/^data:/.test(base)) {
       throw new Error(
         'Data URLs cannot have expressions in the template literal input.',
@@ -230,8 +232,8 @@ type IterableEntries<U> =
   | Readonly<Record<string, U>>;
 type SearchParams =
   | IterableEntries<
-      Primitive | null | undefined | ReadonlyArray<Primitive | null | undefined>
-    >
+    Primitive | null | undefined | ReadonlyArray<Primitive | null | undefined>
+  >
   | URLSearchParams;
 
 /**
@@ -352,7 +354,7 @@ export function replaceFragment(
   const urlString = unwrapResourceUrl(trustedUrl).toString();
   return createResourceUrlInternal(
     BEFORE_FRAGMENT_REGEXP.exec(urlString)![0] +
-      (fragment.trim() ? '#' + fragment : ''),
+    (fragment.trim() ? '#' + fragment : ''),
   );
 }
 
@@ -389,7 +391,7 @@ export function objectUrlFromScript(
   safeScript: SafeScript,
 ): TrustedResourceUrl {
   const scriptContent = unwrapScript(safeScript).toString();
-  const blob = new Blob([scriptContent], {type: 'text/javascript'});
+  const blob = new Blob([scriptContent], { type: 'text/javascript' });
   return createResourceUrlInternal(URL.createObjectURL(blob));
 }
 

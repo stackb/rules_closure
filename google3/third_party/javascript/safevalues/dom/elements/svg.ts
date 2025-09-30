@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../../environment/dev.js';
+// import '../../environment/dev.js';
 
 const UNSAFE_SVG_ATTRIBUTES = ['href', 'xlink:href'];
 
@@ -23,9 +23,9 @@ export function setSvgAttribute(
     attrLower.indexOf('on') === 0
   ) {
     let msg = '';
-    if (process.env.NODE_ENV !== 'production') {
-      msg = `Setting the '${attrLower}' attribute on SVG can cause XSS.`;
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    msg = `Setting the '${attrLower}' attribute on SVG can cause XSS.`;
+    // }
     throw new Error(msg);
   }
 

@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import '../environment/dev.js';
+// import '../environment/dev.js';
 import {
   createHtmlInternal,
   SafeHtml,
   unwrapHtml,
 } from '../internals/html_impl.js';
-import {assertIsTemplateObject} from '../internals/string_literal.js';
+import { assertIsTemplateObject } from '../internals/string_literal.js';
 
 /**
  * Creates a DocumentFragment object from a template literal (without any
@@ -28,9 +28,9 @@ import {assertIsTemplateObject} from '../internals/string_literal.js';
 export function htmlFragment(
   templateObj: TemplateStringsArray,
 ): DocumentFragment {
-  if (process.env.NODE_ENV !== 'production') {
-    assertIsTemplateObject(templateObj, 0);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   assertIsTemplateObject(templateObj, 0);
+  // }
   const range = document.createRange();
   return range.createContextualFragment(
     unwrapHtml(createHtmlInternal(templateObj[0])) as string,
@@ -50,9 +50,9 @@ export function htmlFragment(
 export function svgFragment(
   templateObj: TemplateStringsArray,
 ): DocumentFragment {
-  if (process.env.NODE_ENV !== 'production') {
-    assertIsTemplateObject(templateObj, 0);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   assertIsTemplateObject(templateObj, 0);
+  // }
   const svgElem = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const range = document.createRange();
   range.selectNodeContents(svgElem);

@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {SafeScript, unwrapScript} from '../../internals/script_impl.js';
+import { SafeScript, unwrapScript } from '../../internals/script_impl.js';
 
-export {fetchResourceUrl, type SafeResponse} from './fetch.js';
+export { fetchResourceUrl, type SafeResponse } from './fetch.js';
 
 /**
  * Evaluates a SafeScript value in the given scope using eval.

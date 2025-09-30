@@ -17,12 +17,12 @@
  *    that bug and possibly other ones.
  */
 
-import {setStyleTextContent} from '../../../dom/elements/style.js';
-import {createStyleSheetInternal} from '../../../internals/style_sheet_impl.js';
-import {UrlPolicy, UrlPolicyHintsType, parseUrl} from '../url_policy.js';
-import {escapeIdent, serializeTokens} from './serializer.js';
-import {tokenizeCss} from './tokenizer.js';
-import {CssToken, CssTokenKind} from './tokens.js';
+import { setStyleTextContent } from '../../../dom/elements/style.js';
+import { createStyleSheetInternal } from '../../../internals/style_sheet_impl.js';
+import { UrlPolicy, UrlPolicyHintsType, parseUrl } from '../url_policy.js';
+import { escapeIdent, serializeTokens } from './serializer.js';
+import { tokenizeCss } from './tokenizer.js';
+import { CssToken, CssTokenKind } from './tokens.js';
 
 /**
  * A function that can be used to discard a property.
@@ -222,9 +222,8 @@ class CssSanitizer {
     if (!sanitizedValue) {
       return null;
     }
-    return `${escapeIdent(name)}: ${sanitizedValue}${
-      isImportant ? ' !important' : ''
-    }`;
+    return `${escapeIdent(name)}: ${sanitizedValue}${isImportant ? ' !important' : ''
+      }`;
   }
 
   private sanitizeStyleDeclaration(
