@@ -1,9 +1,11 @@
 {namespace soy.example.app}
 
+import {ClosureJsLibrary} from 'java/io/bazel/rules/closure/build_info.proto';
+
 {template header}
   {@param title: string}
 <h1 class="{css('app-header')}">
-    {$title}
+    {$title} (<code>{xid('a.b.c')}</code>)
 </h1>
 {/template}
 
@@ -16,8 +18,9 @@
 </section>
 {/template}
 
-{template body}
+{template app}
   {@param appName: string}
+  {@param buildInfo: ClosureJsLibrary}
 <div class="{css('app-body')}">
     {call header}
         {param title: $appName /}
@@ -25,8 +28,47 @@
     {call section}
         {param title: 'About' /}
         {param body kind="html"}
-        This app demonstrates the composition of a <code>closure_js_binary</code>.
+        This app uses the following technologies:
+        <ul>
+          <li>Advanced JS Minification with Closure Compiler</li>
+          <li>Html-Safe templating with Closure Templates (Soy)</li>
+          <li>Rendering of protobuf messages in Soy templates</li>
+          <li>CSS Minification</li>
+        </ul>
+        {/param}
+    {/call}
+    {call section}
+        {param title: 'Information produced by JsChecker about a single JS library rule' /}
+        {param body kind="html"}
+        To demonstrate use of protobuf+soy, we pass in a protobuf as an argument and render some fields:
+        <ul>
+          <li><b>label:</b> {if $buildInfo.getLabel()}{mono(value: $buildInfo.getLabel())}{else}<i>No Label</i>{/if}</li>
+          <li><b>legacy:</b> {mono(value: $buildInfo.getLegacy())}</li>
+          <li><b>modules:</b>{sp}
+            {call buildCommaSeparatedList_}
+              {param items: $buildInfo.getModuleList() /}
+            {/call}
+          </li>
+        </ul>
         {/param}
     {/call}
 </div>
+{/template}
+
+/**
+ * Private helper to build a comma separated list.
+ */
+{template buildCommaSeparatedList_ visibility="private"}
+  {@param items: list<?>}  /** The list of items. */
+  {for $item, $itemIndex in $items}
+    {if $itemIndex != 0}
+      ,{sp}
+    {/if}
+    {mono(value: $item)}
+  {/for}
+{/template}
+
+{template mono kind="html<code>"}
+  {@param value: ?}
+  <code>{$value}</code>
 {/template}

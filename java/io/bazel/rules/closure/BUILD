@@ -64,6 +64,7 @@ java_library(
 proto_library(
     name = "build_info_proto",
     srcs = ["build_info.proto"],
+    visibility = ["//visibility:public"],
 )
 
 java_proto_library(

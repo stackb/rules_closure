@@ -92,6 +92,11 @@ closure. These are generated from the source file path relative to
 the longest matching root prefix. It is used to guarantee that
 within any given transitive closure, no namespace collisions
 exist. These MUST NOT begin with "/" or ".", or contain "..".""",
+    "descriptors": """
+NestedSet<File> of all protobuf definitions in the transitive
+closure. It is used so Closure Templates can have information about
+the structure of protobufs so they can be easily rendered in .soy
+files with type safety. See closure_js_template_library.bzl.""",
     "stylesheets": """
 NestedSet<Label> of all closure_css_library rules in the transitive
 closure. This is used by closure_js_binary can guarantee the
@@ -151,6 +156,7 @@ def collect_js(
     ijs_files = []
     infos = []
     modules = []
+    descriptors = []
     stylesheets = []
     js_module_roots = []
     has_closure_library = False
@@ -159,6 +165,7 @@ def collect_js(
         ijs_files.append(getattr(dep, "ijs_files", depset()))
         infos.append(getattr(dep, "infos", depset()))
         modules.append(getattr(dep, "modules", depset()))
+        descriptors.append(getattr(dep, "descriptors", depset()))
         stylesheets.append(getattr(dep, "stylesheets", depset()))
         js_module_roots.append(getattr(dep, "js_module_roots", depset()))
         has_closure_library = (
@@ -181,6 +188,7 @@ def collect_js(
         ijs_files = depset(transitive = ijs_files),
         infos = depset(transitive = infos),
         modules = depset(transitive = modules),
+        descriptors = depset(transitive = descriptors),
         stylesheets = depset(transitive = stylesheets),
         has_closure_library = has_closure_library,
     )

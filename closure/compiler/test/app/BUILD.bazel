@@ -1,3 +1,4 @@
+load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
 load(
     "@rules_closure//closure:defs.bzl",
     "closure_css_binary",
@@ -7,8 +8,22 @@ load(
     "closure_js_template_library",
     "web_library",
 )
+load("@rules_closure//closure/protobuf:defs.bzl", "closure_jspb_library")
 
 package(default_testonly = True)
+
+proto_compile(
+    name = "build_info_js_proto",
+    outputs = ["build_info.js"],
+    plugins = ["//closure/protobuf:protoc-gen-js"],
+    proto = "//java/io/bazel/rules/closure:build_info_proto",
+)
+
+closure_jspb_library(
+    name = "build_info",
+    srcs = [":build_info_js_proto"],
+    internal_descriptors = ["//java/io/bazel/rules/closure:build_info_proto"],
+)
 
 closure_css_library(
     name = "css",
@@ -26,12 +41,14 @@ closure_css_binary(
 closure_js_template_library(
     name = "soy",
     srcs = ["app.soy"],
+    deps = [":build_info"],
 )
 
 closure_js_library(
     name = "app",
     srcs = ["app.js"],
     deps = [
+        ":build_info",
         ":soy",
         "//closure/goog/dom",
         "//closure/goog/soy",

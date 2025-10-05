@@ -1,30 +1,50 @@
 load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("//closure:defs.bzl", "closure_js_library")
 
-closure_ts_compile(
+closure_js_library(
     name = "html_sanitizer",
-    srcs = [
-        "default_css_sanitizer.ts",
-        "html_sanitizer.ts",
-        "html_sanitizer_builder.ts",
-        "inert_fragment.ts",
-        "no_clobber.ts",
-        "url_policy.ts",
-        "css/allowlists.ts",
-        "css/css_isolation.ts",
-        "css/sanitizer.ts",
-        "css/serializer.ts",
-        "css/tokenizer.ts",
-        "css/tokens.ts",
-        # "css/serializer_test_data.ts",
+    srcs = [":html_sanitizer_ts"],
+    lenient = True,
+    suppress = [
+        "checkTypes",
+        "uselessCode",
+        "missingReturn",
     ],
-    visibility = [
-        "//google3/third_party/javascript/safevalues:__subpackages__",
-    ],
+    visibility = ["//visibility:public"],
     deps = [
         "//google3/third_party/javascript/safevalues/builders",
         "//google3/third_party/javascript/safevalues/builders/html_sanitizer/sanitizer_table",
         "//google3/third_party/javascript/safevalues/dom/elements",
         "//google3/third_party/javascript/safevalues/dom/globals",
         "//google3/third_party/javascript/safevalues/internals",
+        "//google3/third_party/javascript/tslib",
+    ],
+)
+
+closure_ts_compile(
+    name = "html_sanitizer_ts",
+    srcs = [
+        "css/allowlists.ts",
+        "css/css_isolation.ts",
+        "css/sanitizer.ts",
+        "css/serializer.ts",
+        "css/tokenizer.ts",
+        "css/tokens.ts",
+        "default_css_sanitizer.ts",
+        "html_sanitizer.ts",
+        "html_sanitizer_builder.ts",
+        "inert_fragment.ts",
+        "no_clobber.ts",
+        "url_policy.ts",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [
+        "//google3/third_party/javascript/safevalues/builders:builders_ts",
+        "//google3/third_party/javascript/safevalues/builders/html_sanitizer/sanitizer_table:sanitizer_table_ts",
+        "//google3/third_party/javascript/safevalues/dom/elements:elements_ts",
+        "//google3/third_party/javascript/safevalues/dom/globals:globals_ts",
+        "//google3/third_party/javascript/safevalues/internals:internals_ts",
     ],
 )

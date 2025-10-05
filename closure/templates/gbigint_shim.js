@@ -1,7 +1,4 @@
-/**
- * @license
- * Copyright 2016 The Closure Rules Authors. All Rights Reserved.
- *
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,20 +12,15 @@
  * limitations under the License.
  */
 
-.app-container {
-  background: #333;
-  color: #f6f6f6;
-  font-family: sans-serif;
-  margin: 1em auto;
-  padding: 0 1em;
-  width: 960px;
-}
+/**
+ * @fileoverview Shim for gbigint that I am guessing is substitutable for bigint.
+ */
 
-.app-emphasis {
-  color: #f63333;
-}
+goog.module('soy.types.gbigint');
 
-.app-body {
-  margin: auto;
-  max-width: 960px;
-}
+/**
+  * @typedef {bigint}
+  */
+let gbigint;
+
+exports = { gbigint };

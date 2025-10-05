@@ -49,8 +49,9 @@ def _impl(ctx):
         inputs.append(ctx.file.globals)
     for dep in unfurl(extract_providers(ctx.attr.deps, provider = ClosureJsLibraryInfo)):
         for f in dep.descriptors.to_list():
-            args.append("--protoFileDescriptors=%s" % f.path)
+            args.append("--directProtoDeps=%s" % f.path)
             inputs.append(f)
+            # TODO: compile all descriptors into a single direct and indirect
 
     plugin_transitive_deps = depset(
         transitive = [m[SoyPluginInfo].generator.runtime.transitive_runtime_jars for m in ctx.attr.plugins],
@@ -149,7 +150,7 @@ def closure_js_template_library(
         "//closure/goog/string:const",
         "//closure/goog/uri",
         "//closure/templates:soy_jssrc",
-        # "@com_google_closure_templates//javascript:goog",
+        "//google3/javascript/xid",
     ]
 
     closure_js_library(

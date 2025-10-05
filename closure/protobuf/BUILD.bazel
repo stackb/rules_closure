@@ -21,7 +21,10 @@ licenses(["notice"])
 
 closure_js_library(
     name = "jspb",
-    srcs = ["@protobuf_javascript//:proto_js_library_files"],
+    srcs = [
+        "jspb_shim.js",
+        "@protobuf_javascript//:javascript",
+    ],
     suppress = [
         "analyzerChecks",
         "lintChecks",
@@ -43,6 +46,7 @@ closure_js_library(
 proto_plugin(
     name = "protoc-gen-js",
     options = [
+        "binary",
         "import_style=closure",
         "library={PACKAGE}/{PROTO_LIBRARY_BASENAME}",
     ],

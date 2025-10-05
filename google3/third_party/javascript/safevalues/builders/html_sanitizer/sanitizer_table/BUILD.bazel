@@ -1,7 +1,23 @@
 load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("//closure:defs.bzl", "closure_js_library")
+
+closure_js_library(
+    name = "sanitizer_table",
+    srcs = [":sanitizer_table_ts"],
+    lenient = True,
+    suppress = [
+        "checkTypes",
+        "uselessCode",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//google3/third_party/javascript/safevalues/internals",
+        "//google3/third_party/javascript/tslib",
+    ],
+)
 
 closure_ts_compile(
-    name = "sanitizer_table",
+    name = "sanitizer_table_ts",
     srcs = [
         "default_sanitizer_table.ts",
         "sanitizer_table.ts",
@@ -9,7 +25,5 @@ closure_ts_compile(
     visibility = [
         "//google3/third_party/javascript/safevalues:__subpackages__",
     ],
-    deps = [
-        "//google3/third_party/javascript/safevalues/internals",
-    ],
+    deps = ["//google3/third_party/javascript/safevalues/internals:internals_ts"],
 )

@@ -89,3 +89,8 @@ export {
   isStyleSheet,
   unwrapStyleSheet,
 } from './internals/style_sheet_impl.js';
+export {
+  SafeUrl,
+  isUrl,
+  unwrapUrl,
+} from './internals/url_impl.js';

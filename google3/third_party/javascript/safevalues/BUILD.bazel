@@ -1,12 +1,28 @@
 load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("//closure:defs.bzl", "closure_js_library")
 
-closure_ts_compile(
+closure_js_library(
     name = "safevalues",
-    srcs = ["index.ts"],
+    srcs = [":safevalues_ts"],
+    lenient = True,
     visibility = ["//visibility:public"],
     deps = [
         "//google3/third_party/javascript/safevalues/builders",
         "//google3/third_party/javascript/safevalues/builders/html_sanitizer",
         "//google3/third_party/javascript/safevalues/dom",
+        "//google3/third_party/javascript/safevalues/internals",
+        "//google3/third_party/javascript/tslib",
+    ],
+)
+
+closure_ts_compile(
+    name = "safevalues_ts",
+    srcs = ["index.ts"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//google3/third_party/javascript/safevalues/builders:builders_ts",
+        "//google3/third_party/javascript/safevalues/builders/html_sanitizer:html_sanitizer_ts",
+        "//google3/third_party/javascript/safevalues/dom:dom_ts",
+        "//google3/third_party/javascript/safevalues/internals:internals_ts",
     ],
 )

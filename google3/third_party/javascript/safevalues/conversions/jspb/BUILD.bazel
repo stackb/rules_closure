@@ -1,0 +1,13 @@
+load("//closure:defs.bzl", "closure_js_library")
+
+closure_js_library(
+    name = "jspb",
+    srcs = ["index.js"],
+    lenient = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        "//closure/templates:html_js",
+        "//google3/third_party/javascript/safevalues",
+        "//google3/third_party/javascript/safevalues/internals",
+    ],
+)

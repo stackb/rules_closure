@@ -1,0 +1,18 @@
+diff --git a/javascript/BUILD.bazel b/javascript/BUILD.bazel
+new file mode 100644
+index 000000000..e80c73a2d
+--- /dev/null
++++ b/javascript/BUILD.bazel
+@@ -0,0 +1,12 @@
++filegroup(
++    name = "soyutils",
++    srcs = [
++        "required_by_soy.js",
++        "soydata_converters.js",
++        "soyutils_map.js",
++        "soyutils_newmaps.js",
++        "soyutils_templates.js",
++        "soyutils_usegoog.js",
++    ],
++    visibility = ["//visibility:public"],
++)

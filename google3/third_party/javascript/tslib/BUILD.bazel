@@ -1,0 +1,8 @@
+load("//closure:defs.bzl", "closure_js_library")
+
+closure_js_library(
+    name = "tslib",
+    srcs = ["@rules_tsickle//vendor/tsickle/third_party/tslib"],
+    lenient = True,
+    visibility = ["//visibility:public"],
+)

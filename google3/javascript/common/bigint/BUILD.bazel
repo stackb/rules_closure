@@ -1,0 +1,17 @@
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("//closure:defs.bzl", "closure_js_library")
+
+closure_js_library(
+    name = "bigint",
+    srcs = [":bigint_ts"],
+    lenient = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        "//google3/third_party/javascript/tslib",
+    ],
+)
+
+closure_ts_compile(
+    name = "bigint_ts",
+    srcs = ["index.ts"],
+)

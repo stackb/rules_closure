@@ -1,0 +1,10 @@
+load("//closure:defs.bzl", "closure_js_library")
+
+closure_js_library(
+    name = "xid",
+    srcs = ["xid.js"],
+    suppress = [
+        "useOfGoogProvide",
+    ],
+    visibility = ["//visibility:public"],
+)

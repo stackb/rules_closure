@@ -16,12 +16,17 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
+# soyutils filegroup represents files needed by soy templating for dependents
+# like rules_closure.  incrementaldom and other non-open source related code is
+# excluded.
 filegroup(
-    name = "com_google_template_soy_jssrc",
+    name = "soyutils",
     srcs = [
-        "checks.js",
-        "jspbconversions.js",
+        "required_by_soy.js",
         "soydata_converters.js",
+        "soyutils_map.js",
+        "soyutils_newmaps.js",
+        "soyutils_templates.js",
         "soyutils_usegoog.js",
     ],
 )

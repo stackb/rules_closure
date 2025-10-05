@@ -12,35 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@rules_java//java:defs.bzl", "java_library")
-load(
-    "//closure:defs.bzl",
-    "closure_js_library",
-    # "closure_js_proto_library",
-)
 load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
+
+# load("@rules_java//java:defs.bzl", "java_library")
+load("//closure:defs.bzl", "closure_js_library")
 
 package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
-java_library(
-    name = "templates",
-    exports = ["@com_google_template_soy"],
-)
+exports_files([
+    "javascript-BUILD.patch",
+    "required_by_soy.js.patch",
+    "soyutils_usegoog.js.patch",
+    "soyutils_usegoog.js-gbigint.patch",
+    "soyutils_usegoog.js-safehtml.patch",
+])
 
-# closure_js_proto_library(
-#     name = "soy_html_proto",
-#     srcs = ["@com_google_common_html_types_html_proto//file"],
+# java_library(
+#     name = "templates",
+#     exports = ["@com_google_template_soy"],
 # )
 
 closure_js_library(
     name = "soy_jssrc",
     srcs = [
-        # "@com_google_closure_templates//javascript:onefile",
-        "@com_google_closure_templates//javascript:goog",
+        "gbigint_shim.js",
+        "safevalues_shim.js",
+        "@com_google_closure_templates//javascript:soyutils",  # files needed by soy templating; incrementaldom and related code are excluded.
     ],
     lenient = True,
+    suppress = [
+        "accessControls",  # SafeHtmlGoog.createSafeHtmlSecurityPrivateDoNotAccessOrElse
+    ],
     deps = [
         ":html_js",
         "//closure/goog/array",
@@ -67,6 +71,12 @@ closure_js_library(
         "//closure/goog/string:const",
         "//closure/goog/uri",
         "//closure/protobuf:jspb",
+        "//google3/javascript/apps/jspb/types",
+        "//google3/javascript/common/bigint",
+        "//google3/javascript/xid",
+        "//google3/third_party/javascript/safevalues",
+        "//google3/third_party/javascript/safevalues/conversions/jspb",
+        "//google3/third_party/javascript/safevalues/restricted",
     ],
 )
 
@@ -81,7 +91,6 @@ proto_compile(
 closure_js_library(
     name = "html_js",
     srcs = ["html.js"],
-    deps = [
-        "//closure/protobuf:jspb",
-    ],
+    visibility = ["//visibility:public"],
+    deps = ["//closure/protobuf:jspb"],
 )

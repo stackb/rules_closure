@@ -9,7 +9,7 @@
 import { getPolicy, UnwrapType } from './trusted_types.js';
 import { TrustedScriptURL } from './trusted_types_typings.js';
 
-import '../environment/dev.js';
+// import '../environment/dev.js';
 
 import { ensureTokenIsValid, secretToken } from './secrets.js';
 

@@ -1,180 +1,72 @@
 module(
     name = "rules_closure",
-    version = "0.15.0",
+    version = "0.0.0",
+    compatibility_level = 1,
 )
 
-bazel_dep(
-    name = "bazel_skylib",
-    version = "1.7.1",
-)
+# -------------------------------------------------------------------
+# Direct Dependencies
+# -------------------------------------------------------------------
 
-bazel_dep(
-    name = "platforms",
-    version = "0.0.11",
-)
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
+bazel_dep(name = "com_google_closure_templates", version = "0.0.0")
+bazel_dep(name = "google_bazel_common", version = "0.0.1")
+bazel_dep(name = "platforms", version = "0.0.11")
+bazel_dep(name = "protobuf_javascript", version = "0.0.0")
+bazel_dep(name = "protobuf", version = "32.1", repo_name = "com_google_protobuf")
+bazel_dep(name = "rules_java", version = "8.15.2")
+bazel_dep(name = "rules_jvm_external", version = "6.8")
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_python", version = "1.4.1")
+bazel_dep(name = "rules_tsickle", version = "0.0.0")
+bazel_dep(name = "rules_web_testing_java", version = "0.4.1", repo_name = "io_rules_web_testing_java")
+bazel_dep(name = "rules_webtesting", version = "0.4.1", repo_name = "io_bazel_rules_webtesting")
 
-# TODO(mollyibot): Remove this in the future.
-bazel_dep(
-    name = "rules_proto",
-    version = "7.1.0",
-)
+# -------------------------------------------------------------------
+# Overrides
+# -------------------------------------------------------------------
 
-bazel_dep(
-    name = "protobuf",
-    version = "32.1",
-    repo_name = "com_google_protobuf",
-)
-
-bazel_dep(
-    name = "google_bazel_common",
-    version = "0.0.1",
-)
-
-bazel_dep(
-    name = "rules_webtesting",
-    version = "0.4.1",
-    repo_name = "io_bazel_rules_webtesting",
-)
-
-bazel_dep(
-    name = "rules_web_testing_java",
-    version = "0.4.1",
-    repo_name = "io_rules_web_testing_java",
-)
-
-##### Java dependencies #####
-bazel_dep(
-    name = "rules_java",
-    version = "8.15.2",
-)
-
-bazel_dep(
-    name = "rules_jvm_external",
-    version = "6.8",
-)
-
-bazel_dep(
-    name = "build_stack_rules_proto",
-    version = "4.1.0",
-)
 local_path_override(
     module_name = "build_stack_rules_proto",
     path = "/Users/pcj/go/src/github.com/stackb/rules_proto",
 )
 
-bazel_dep(
-    name = "com_google_closure_templates",
-)
+# local_path_override(
+#     module_name = "com_google_closure_templates",
+#     path = "/Users/pcj/go/src/github.com/google/closure-templates",
+# )
 
-local_path_override(
-    module_name = "com_google_closure_templates",
-    path = "/Users/pcj/go/src/github.com/google/closure-templates",
-)
-
-bazel_dep(
-    name = "protobuf_javascript",
-)
-
-# Commit: cbeded24c7ebf62ed4d83ead2638c41b3078033b
-# Date: 2025-08-20 03:18:20 +0000 UTC
-# URL: https://github.com/protocolbuffers/protobuf-javascript/commit/cbeded24c7ebf62ed4d83ead2638c41b3078033b
-#
-# Fixup scorecards.yml
-#
-# - try to fix 'invalid name' error for upload file artifact by just removing the setting; it's optional and will default to 'artifact'
-#
-# - bump various action versions
-# Size: 401416 (401 kB)
+# https://github.com/google/closure-templates/pull/2594
 archive_override(
-    module_name = "protobuf_javascript",
-    sha256 = "0949300ca6395d6a190a9027f7151825222147febf9b5225101ccd715d22bbed",
-    strip_prefix = "protobuf-javascript-cbeded24c7ebf62ed4d83ead2638c41b3078033b",
-    urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/cbeded24c7ebf62ed4d83ead2638c41b3078033b.tar.gz"],
-    build_file_content = """
-filegroup(
-    name = "proto_js_library_files",
-    srcs = [
-        "asserts.js",
-        "bytestring.js",
-        "debug.js",
-        "internal_bytes.js",
-        "internal_options.js",
-        "internal_public.js",
-        "map.js",
-        "message.js",
-        "unsafe_bytestring.js",
-        "binary/any_field_type.js",
-        "binary/arith.js",
-        "binary/binary_constants.js",
-        "binary/bytesource.js",
-        "binary/decoder.js",
-        "binary/decoder_alias.js",
-        "binary/encoder.js",
-        "binary/encoder_alias.js",
-        "binary/errors.js",
-        "binary/internal_buffer.js",
-        "binary/reader.js",
-        "binary/reader_alias.js",
-        "binary/repeated_field_type.js",
-        "binary/scalar_field_type.js",
-        "binary/test_utils.js",
-        "binary/utf8.js",
-        "binary/utils.js",
-        "binary/writer.js",
-        "binary/writer_alias.js",
+    patches = [
+        "//closure/templates:javascript-BUILD.patch",
+        "//closure/templates:required_by_soy.js.patch",
+        "//closure/templates:soyutils_usegoog.js.patch",
+        "//closure/templates:soyutils_usegoog.js-gbigint.patch",
+        "//closure/templates:soyutils_usegoog.js-safehtml.patch",
     ],
-    visibility = ["//visibility:public"],
-)
-""",
+    patch_strip = 1,
+    module_name = "com_google_closure_templates",
+    sha256 = "32adea042dabfcc8347f425d0225a003e0a011d037e9065cbc79518284651017",
+    strip_prefix = "closure-templates-a41a0fb1746f53a8a6d6920044df9810b128e722",
+    urls = ["https://github.com/google/closure-templates/archive/a41a0fb1746f53a8a6d6920044df9810b128e722.tar.gz"],
 )
 
-bazel_dep(
-    name = "rules_tsickle",
+# NOTE: remember to make a note about cannot upgrade past protobuf editions...
+local_path_override(
+    module_name = "protobuf_javascript",
+    path = "/Users/pcj/go/src/github.com/protocolbuffers/protobuf-javascript",
 )
+
 local_path_override(
     module_name = "rules_tsickle",
     path = "/Users/pcj/go/src/github.com/stackb/rules_tsickle",
 )
 
-maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-
-maven.install(
-    artifacts = [
-        "args4j:args4j:2.33",
-        "com.google.closure-stylesheets:closure-stylesheets:1.5.0",
-        "com.google.dagger:dagger-producers:2.43.2",
-        "com.google.jimfs:jimfs:1.1",
-        "net.java.dev.javacc:javacc:7.0.13",
-        "org.jsoup:jsoup:1.16.1",
-        "org.seleniumhq.selenium:selenium-remote-driver:4.27.0",
-        "org.seleniumhq.selenium:selenium-api:4.27.0",
-        "org.seleniumhq.selenium:selenium-support:4.27.0",
-    ],
-)
-
-# Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
-maven.artifact(
-    artifact = "closure-compiler",
-    group = "com.google.javascript",
-    version = "v20250402",
-)
-
-# javacc:javacc was not updated since 2008 and relocated to net.java.dev.javacc
-maven.override(
-    coordinates = "javacc:javacc",
-    target = "@maven//:net_java_dev_javacc_javacc",
-)
-
-use_repo(maven, "maven")
-
-##### Python dependencies #####
-bazel_dep(
-    name = "rules_python",
-    version = "1.4.1",
-)
-
-##### Other dependencies #####
-# http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+# -------------------------------------------------------------------
+# additional http dependencies
+# -------------------------------------------------------------------
 
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
@@ -248,12 +140,37 @@ platform_http_file(
     ],
 )
 
-# bazel_dep(name = "aspect_rules_ts", version = "3.7.0")
+# -------------------------------------------------------------------
+# maven configuration
+# -------------------------------------------------------------------
 
-# rules_ts_ext = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext", dev_dependency = True)
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 
-# rules_ts_ext.deps(
-#     ts_version_from = "@rules_tsickle//:package.json",
-# )
+maven.install(
+    artifacts = [
+        "args4j:args4j:2.33",
+        "com.google.closure-stylesheets:closure-stylesheets:1.5.0",
+        "com.google.dagger:dagger-producers:2.43.2",
+        "com.google.jimfs:jimfs:1.1",
+        "net.java.dev.javacc:javacc:7.0.13",
+        "org.jsoup:jsoup:1.16.1",
+        "org.seleniumhq.selenium:selenium-remote-driver:4.27.0",
+        "org.seleniumhq.selenium:selenium-api:4.27.0",
+        "org.seleniumhq.selenium:selenium-support:4.27.0",
+    ],
+)
 
-# use_repo(rules_ts_ext, "npm_typescript")
+# Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
+maven.artifact(
+    artifact = "closure-compiler",
+    group = "com.google.javascript",
+    version = "v20250402",
+)
+
+# javacc:javacc was not updated since 2008 and relocated to net.java.dev.javacc
+maven.override(
+    coordinates = "javacc:javacc",
+    target = "@maven//:net_java_dev_javacc_javacc",
+)
+
+use_repo(maven, "maven")

@@ -50,6 +50,7 @@ def create_closure_js_library(
         suppress = [],
         lenient = False,
         convention = "CLOSURE",
+        internal_descriptors = depset(),
         artifact_suffix = ""):
     """ Returns closure_js_library metadata with provided attributes.
 
@@ -89,6 +90,7 @@ def create_closure_js_library(
         convention = convention,
         testonly = testonly,
         artifact_suffix = artifact_suffix,
+        internal_descriptors = internal_descriptors,
     )
 
 def _closure_js_library_impl(
@@ -102,6 +104,7 @@ def _closure_js_library_impl(
         includes = (),
         exports = depset(),
         deps_stylesheets = [],
+        internal_descriptors = None,
         no_closure_library = False,
         internal_expect_failure = False,
         artifact_suffix = "",
@@ -297,9 +300,12 @@ def _closure_js_library_impl(
         unusable_type_definition = unusable_type_definition,
     )
 
+    if type(internal_descriptors) == "list":
+        internal_descriptors = depset(internal_descriptors)
+
     # We now export providers to any parent Target. This is considered a public
-    # interface because other Skylark rules can be designed to do things with
-    # this data. Other Skylark rules can even export their own provider with the
+    # interface because other Starlark rules can be designed to do things with
+    # this data. Other Starlark rules can even export their own provider with the
     # same name to become polymorphically compatible with this one.
     return ClosureJsLibraryInfo(
         # File pointing to a ClosureJsLibrary protobuf file in pbtxt format
@@ -331,6 +337,11 @@ def _closure_js_library_impl(
         # within any given transitive closure, no namespace collisions
         # exist. These MUST NOT begin with "/" or ".", or contain "..".
         modules = depset(modules, transitive = [js.modules]),
+        # NestedSet<File> of all protobuf definitions in the transitive
+        # closure. It is used so Closure Templates can have information about
+        # the structure of protobufs so they can be easily rendered in .soy
+        # files with type safety. See closure_js_template_library.bzl.
+        descriptors = depset(transitive = [js.descriptors, internal_descriptors]),
         # NestedSet<Label> of all closure_css_library rules in the transitive
         # closure. This is used by closure_js_binary can guarantee the
         # completeness of goog.getCssName() substitutions.
@@ -385,6 +396,7 @@ def _closure_js_library(ctx):
         getattr(ctx.attr, "includes", []),
         extract_providers(ctx.attr.exports, ClosureJsLibraryInfo),
         extract_providers(ctx.attr.deps, ClosureCssLibraryInfo),
+        ctx.files.internal_descriptors,
         ctx.attr.no_closure_library,
         ctx.attr.internal_expect_failure,
         "",  # artifact_suffix
@@ -436,6 +448,7 @@ closure_js_library = rule(
         "language": attr.string(),
 
         # internal only
+        "internal_descriptors": attr.label_list(allow_files = True),
         "internal_expect_failure": attr.bool(default = False),
     }, **CLOSURE_JS_TOOLCHAIN_ATTRS),
     # TODO(yannic): Deprecate.
