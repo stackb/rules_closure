@@ -23,7 +23,7 @@ def _web_library_external(ctx):
         lines.append("")
     lines.append("licenses(%s)" % repr(ctx.attr.licenses))
     lines.append("")
-    lines.append("load(\"@rules_closure//closure:" +
+    lines.append("load(\"@io_bazel_rules_closure//closure:" +
                  "defs.bzl\", \"web_library\")")
     lines.append("")
     lines.append("web_library(")
