@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
 package(default_visibility = ["//visibility:public"])
 
 licenses(["restricted"])
@@ -20,7 +22,6 @@ sh_binary(
     name = "phantomjs",
     testonly = True,
     srcs = ["phantomjs.sh"],
-    deps = ["@bazel_tools//tools/bash/runfiles"],
     data = [
         "bin/phantomjs",
         "//third_party/expat:libexpat_k8",
@@ -30,6 +31,7 @@ sh_binary(
         "//third_party/openssl:files",
         "//third_party/png:libpng_k8",
     ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
 )
 
 genrule(

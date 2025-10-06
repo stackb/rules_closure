@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//closure/private:file_test.bzl", "file_test")
+load("//closure:defs.bzl", "closure_js_binary", "closure_js_library")
+
 package(default_testonly = True)
 
 licenses(["notice"])
-
-load("//closure/private:file_test.bzl", "file_test")
-load("//closure:defs.bzl", "closure_js_binary", "closure_js_library")
 
 closure_js_library(
     name = "hello_lib",
@@ -38,8 +39,8 @@ file_test(
 
 file_test(
     name = "sourcemap_doesntContainWeirdBazelDirectories",
-    regexp = r'"sources":\["/closure/compiler/test/hello.js"\]',
     file = "hello_bin.js.map",
+    regexp = r'"sources":\["/closure/compiler/test/hello.js"\]',
 )
 
 # Make sure bazel doesn't complain about some outputs not created.
@@ -64,8 +65,8 @@ file_test(
 
 file_test(
     name = "sourcemapWithWrapper_hasDifferentMappingCodes",
-    regexp = r'"mappings":"[A-Za-z,]\+;",',
     file = "hello_wrap_bin.js.map",
+    regexp = r'"mappings":"[A-Za-z,]\+;",',
 )
 
 closure_js_binary(

@@ -8,18 +8,19 @@ module(
 # Direct Dependencies
 # -------------------------------------------------------------------
 
-bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")
 bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
 bazel_dep(name = "closure-templates", version = "0.0.0")
 bazel_dep(name = "google_bazel_common", version = "0.0.1")
-bazel_dep(name = "platforms", version = "0.0.11")
+bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "protobuf_javascript", version = "0.0.0")
 bazel_dep(name = "protobuf", version = "32.1", repo_name = "com_google_protobuf")
-bazel_dep(name = "rules_java", version = "8.15.2")
+bazel_dep(name = "rules_java", version = "8.16.1")
+bazel_dep(name = "rules_shell", version = "0.6.1")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
 bazel_dep(name = "rules_proto", version = "7.1.0")
-bazel_dep(name = "rules_python", version = "1.4.1")
-bazel_dep(name = "rules_tsickle", version = "0.0.0")
+bazel_dep(name = "rules_python", version = "1.5.3")
+bazel_dep(name = "rules_tsickle", version = "1.0.0")
 bazel_dep(name = "rules_web_testing_java", version = "0.4.1", repo_name = "io_rules_web_testing_java")
 bazel_dep(name = "rules_webtesting", version = "0.4.1", repo_name = "io_bazel_rules_webtesting")
 
@@ -54,18 +55,6 @@ archive_override(
     sha256 = "6919eb403df3f1ae16932801b5667b5198a817cdf2d6a4490eb81121d2357891",
     strip_prefix = "protobuf-javascript-91b1fff21928815fb0b5ec3143ededde5711611c",
     urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/91b1fff21928815fb0b5ec3143ededde5711611c.tar.gz"],
-)
-
-# Release: v1.0.0
-# TargetCommitish: main
-# Date: 2025-10-06 18:09:34 +0000 UTC
-# URL: https://github.com/stackb/rules_tsickle/releases/tag/v1.0.0
-# Size: 291431 (291 kB)
-archive_override(
-    module_name = "rules_tsickle",
-    sha256 = "28821257a547b124278581c7d1ba0c180e119a78d821182caee79355b87acf07",
-    strip_prefix = "rules_tsickle-1.0.0",
-    urls = ["https://github.com/stackb/rules_tsickle/archive/v1.0.0.tar.gz"],
 )
 
 # -------------------------------------------------------------------
