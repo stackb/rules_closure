@@ -136,7 +136,6 @@ def _closure_js_library_impl(
         suppress = suppress + [
             "analyzerChecks",
             "deprecated",
-            "legacyGoogScopeRequire",
             "lintChecks",
             "missingOverride",
             "reportUnknownTypes",
