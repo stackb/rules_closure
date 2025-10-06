@@ -2,11 +2,19 @@
 
 This is fork of [bazelbuild/io_bazel_rules_closure](https://github.com/bazelbuild/io_bazel_rules_closure) with the following main differences:
 
+- repo name is `@io_bazel_rules_closure` instead of `@rules_closure`.
 - the `closure/library` has been restored.
+- missing shims and third-party closure js code has been vendored in `google3/`.
 - support for protobuf-javascript has been restored.
 - support for closure-templates has been restored.
+- integrated example app (`//closure/compiler/test/app:web`).
 - bzlmod deps updated
 - stricter .bazelrc flags
+
+> Since this fork is closer to the original rules_closure by @jart and needs to
+> be distinguished in the BCR, the repo name has been reverted to
+> `@io_bazel_rules_closure`.  The version numbers and tagging scheme are
+> somewhat arbitrary and will try to follow the numbering in the upstream repo.
 
 # Closure Rules for Bazel (αlpha) [![Bazel CI build status](https://badge.buildkite.com/7569410e2a2661076591897283051b6d137f35102167253fed.svg)](https://buildkite.com/bazel/closure-compiler-rules-closure-postsubmit)
 
