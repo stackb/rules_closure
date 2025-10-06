@@ -1,15 +1,12 @@
-matrix:
-  platform:
-    - macos
-    - ubuntu2004
-  bazel:
-    - "7.x"
-    - "8.x"
-tasks:
-  run_tests:
-    bazel: ${{ bazel }}
-    platform: ${{ platform }}
-    build_targets:
-    - "..."
-    test_targets:
-    - "..."
+bcr_test_module:
+  module_path: "."
+  matrix:
+    platform: ["debian11", "ubuntu2404", "macos"]
+    bazel: [7.x, 8.x]
+  tasks:
+    run_tests:
+      name: "Build module"
+      platform: ${{ platform }}
+      bazel: ${{ bazel }}
+      test_targets:
+        - "//..."
