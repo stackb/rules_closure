@@ -20,7 +20,7 @@ load("//closure/compiler:closure_js_library.bzl", "closure_js_library")
 load("//closure/private:defs.bzl", "ClosureJsLibraryInfo", "SOY_FILE_TYPE", "extract_providers", "unfurl")
 load("//closure/templates:closure_templates_plugin.bzl", "SoyPluginInfo")
 
-_SOYTOJSSRCCOMPILER = "@com_google_closure_templates//java/src/com/google/template/soy:SoyToJsSrcCompiler"
+_SOYTOJSSRCCOMPILER = "@closure-templates//java/src/com/google/template/soy:SoyToJsSrcCompiler"
 
 def _impl(ctx):
     args = ["--outputPathFormat=%s/{INPUT_DIRECTORY}/{INPUT_FILE_NAME}.js" %

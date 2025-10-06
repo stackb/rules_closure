@@ -39,7 +39,7 @@ closure_js_library(
     srcs = [
         "gbigint_shim.js",
         "safevalues_shim.js",
-        "@com_google_closure_templates//javascript:soyutils",  # files needed by soy templating; incrementaldom and related code are excluded.
+        "@closure-templates//javascript:soyutils",  # files needed by soy templating; incrementaldom and related code are excluded.
     ],
     lenient = True,
     suppress = [
@@ -84,7 +84,7 @@ proto_compile(
     name = "html_js_proto",
     outputs = ["html.js"],
     plugins = ["//closure/protobuf:protoc-gen-js"],
-    proto = "@com_google_closure_templates//third_party/google/safe-html-types/proto/webutil/html/types:html_proto",
+    proto = "@closure-templates//third_party/google/safe-html-types/proto/webutil/html/types:html_proto",
     visibility = ["//visibility:public"],
 )
 

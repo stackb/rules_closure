@@ -10,7 +10,7 @@ module(
 
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
-bazel_dep(name = "com_google_closure_templates", version = "0.0.0")
+bazel_dep(name = "closure-templates", version = "0.0.0")
 bazel_dep(name = "google_bazel_common", version = "0.0.1")
 bazel_dep(name = "platforms", version = "0.0.11")
 bazel_dep(name = "protobuf_javascript", version = "0.0.0")
@@ -27,36 +27,33 @@ bazel_dep(name = "rules_webtesting", version = "0.4.1", repo_name = "io_bazel_ru
 # Overrides
 # -------------------------------------------------------------------
 
-local_path_override(
-    module_name = "build_stack_rules_proto",
-    path = "/Users/pcj/go/src/github.com/stackb/rules_proto",
-)
-
-# local_path_override(
-#     module_name = "com_google_closure_templates",
-#     path = "/Users/pcj/go/src/github.com/google/closure-templates",
-# )
-
-# https://github.com/google/closure-templates/pull/2594
+# Commit: 9b100cf0d63d36086e00a0a8ca79dd8bf274408e
+# Date: 2025-10-06 20:51:20 +0000 UTC
+# URL: https://github.com/stackb/closure-templates/commit/9b100cf0d63d36086e00a0a8ca79dd8bf274408e
+#
+# Merge pull request #5 from stackb/fix/visibility
+#
+# Fix visibility of //javascript:soyutils
+# Size: 2210305 (2.2 MB)
 archive_override(
-    patches = [
-        "//closure/templates:javascript-BUILD.patch",
-        "//closure/templates:required_by_soy.js.patch",
-        "//closure/templates:soyutils_usegoog.js.patch",
-        "//closure/templates:soyutils_usegoog.js-gbigint.patch",
-        "//closure/templates:soyutils_usegoog.js-safehtml.patch",
-    ],
-    patch_strip = 1,
-    module_name = "com_google_closure_templates",
-    sha256 = "32adea042dabfcc8347f425d0225a003e0a011d037e9065cbc79518284651017",
-    strip_prefix = "closure-templates-a41a0fb1746f53a8a6d6920044df9810b128e722",
-    urls = ["https://github.com/google/closure-templates/archive/a41a0fb1746f53a8a6d6920044df9810b128e722.tar.gz"],
+    module_name = "closure-templates",
+    sha256 = "e14801f61608cedee597374bb30fd5f6fccb318555e72e8880860fc2e5a17e11",
+    strip_prefix = "closure-templates-9b100cf0d63d36086e00a0a8ca79dd8bf274408e",
+    urls = ["https://github.com/stackb/closure-templates/archive/9b100cf0d63d36086e00a0a8ca79dd8bf274408e.tar.gz"],
 )
 
-# NOTE: remember to make a note about cannot upgrade past protobuf editions...
-local_path_override(
+# Commit: 91b1fff21928815fb0b5ec3143ededde5711611c
+# Date: 2025-10-06 20:16:43 +0000 UTC
+# URL: https://github.com/protocolbuffers/protobuf-javascript/commit/91b1fff21928815fb0b5ec3143ededde5711611c
+#
+# Fix closure-js output
+# Size: 401316 (401 kB)
+# NOTE: cannot upgrade past protobuf editions...
+archive_override(
     module_name = "protobuf_javascript",
-    path = "/Users/pcj/go/src/github.com/protocolbuffers/protobuf-javascript",
+    sha256 = "6919eb403df3f1ae16932801b5667b5198a817cdf2d6a4490eb81121d2357891",
+    strip_prefix = "protobuf-javascript-91b1fff21928815fb0b5ec3143ededde5711611c",
+    urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/91b1fff21928815fb0b5ec3143ededde5711611c.tar.gz"],
 )
 
 # Release: v1.0.0
@@ -152,7 +149,6 @@ platform_http_file(
 # -------------------------------------------------------------------
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-
 maven.install(
     artifacts = [
         "args4j:args4j:2.33",
@@ -166,18 +162,13 @@ maven.install(
         "org.seleniumhq.selenium:selenium-support:4.27.0",
     ],
 )
-
-# Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
 maven.artifact(
     artifact = "closure-compiler",
     group = "com.google.javascript",
-    version = "v20250402",
+    version = "v20250402",  # Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
 )
-
-# javacc:javacc was not updated since 2008 and relocated to net.java.dev.javacc
 maven.override(
     coordinates = "javacc:javacc",
-    target = "@maven//:net_java_dev_javacc_javacc",
+    target = "@maven//:net_java_dev_javacc_javacc",  # javacc:javacc was not updated since 2008 and relocated to net.java.dev.javacc
 )
-
 use_repo(maven, "maven")
