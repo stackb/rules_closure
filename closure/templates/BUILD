@@ -13,26 +13,11 @@
 # limitations under the License.
 
 load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
-
-# load("@rules_java//java:defs.bzl", "java_library")
 load("//closure:defs.bzl", "closure_js_library")
 
 package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
-
-exports_files([
-    "javascript-BUILD.patch",
-    "required_by_soy.js.patch",
-    "soyutils_usegoog.js.patch",
-    "soyutils_usegoog.js-gbigint.patch",
-    "soyutils_usegoog.js-safehtml.patch",
-])
-
-# java_library(
-#     name = "templates",
-#     exports = ["@com_google_template_soy"],
-# )
 
 closure_js_library(
     name = "soy_jssrc",

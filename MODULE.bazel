@@ -43,18 +43,21 @@ archive_override(
     urls = ["https://github.com/stackb/closure-templates/archive/9b100cf0d63d36086e00a0a8ca79dd8bf274408e.tar.gz"],
 )
 
-# Commit: 91b1fff21928815fb0b5ec3143ededde5711611c
-# Date: 2025-10-06 20:16:43 +0000 UTC
-# URL: https://github.com/protocolbuffers/protobuf-javascript/commit/91b1fff21928815fb0b5ec3143ededde5711611c
-#
-# Fix closure-js output
-# Size: 401316 (401 kB)
 # NOTE: cannot upgrade past protobuf editions...
+#
+# Commit: 263ee701cba6b75e1f8eddad5adcdf74718318b1
+# Date: 2025-10-08 21:32:22 +0000 UTC
+# URL: https://github.com/protocolbuffers/protobuf-javascript/commit/263ee701cba6b75e1f8eddad5adcdf74718318b1
+#
+# remove writeZigzagVarint64BigInt
+# Size: 401599 (402 kB)
 archive_override(
     module_name = "protobuf_javascript",
-    sha256 = "6919eb403df3f1ae16932801b5667b5198a817cdf2d6a4490eb81121d2357891",
-    strip_prefix = "protobuf-javascript-91b1fff21928815fb0b5ec3143ededde5711611c",
-    urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/91b1fff21928815fb0b5ec3143ededde5711611c.tar.gz"],
+    sha256 = "8a50071fbca5e4a26361e6c9d81dd842207f0005f7cc1720226f20c25a231805",
+    strip_prefix = "protobuf-javascript-263ee701cba6b75e1f8eddad5adcdf74718318b1",
+    urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/263ee701cba6b75e1f8eddad5adcdf74718318b1.tar.gz"],
+    patches = ["closure/protobuf/protobuf_javascript.patch"],
+    patch_strip = 1,
 )
 
 # -------------------------------------------------------------------
