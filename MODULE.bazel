@@ -10,7 +10,7 @@ module(
 
 bazel_dep(name = "bazel_skylib", version = "1.8.2")
 bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
-bazel_dep(name = "closure-templates", version = "0.0.0")
+bazel_dep(name = "closure-templates", version = "1.0.1")
 bazel_dep(name = "google_bazel_common", version = "0.0.1")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "protobuf_javascript", version = "0.0.0")
@@ -27,21 +27,6 @@ bazel_dep(name = "rules_webtesting", version = "0.4.1")
 # -------------------------------------------------------------------
 # Overrides
 # -------------------------------------------------------------------
-
-# Commit: 9b100cf0d63d36086e00a0a8ca79dd8bf274408e
-# Date: 2025-10-06 20:51:20 +0000 UTC
-# URL: https://github.com/stackb/closure-templates/commit/9b100cf0d63d36086e00a0a8ca79dd8bf274408e
-#
-# Merge pull request #5 from stackb/fix/visibility
-#
-# Fix visibility of //javascript:soyutils
-# Size: 2210305 (2.2 MB)
-archive_override(
-    module_name = "closure-templates",
-    sha256 = "e14801f61608cedee597374bb30fd5f6fccb318555e72e8880860fc2e5a17e11",
-    strip_prefix = "closure-templates-9b100cf0d63d36086e00a0a8ca79dd8bf274408e",
-    urls = ["https://github.com/stackb/closure-templates/archive/9b100cf0d63d36086e00a0a8ca79dd8bf274408e.tar.gz"],
-)
 
 # NOTE: cannot upgrade past protobuf editions...
 #
