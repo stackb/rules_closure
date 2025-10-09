@@ -15,10 +15,10 @@
 """Utilities for compiling Closure Templates to JavaScript.
 """
 
-load("//closure/compiler:closure_js_aspect.bzl", "closure_js_aspect")
-load("//closure/compiler:closure_js_library.bzl", "closure_js_library")
-load("//closure/private:defs.bzl", "ClosureJsLibraryInfo", "SOY_FILE_TYPE", "extract_providers", "unfurl")
-load("//closure/templates:closure_templates_plugin.bzl", "SoyPluginInfo")
+load("@io_bazel_rules_closure//closure/compiler:closure_js_aspect.bzl", "closure_js_aspect")
+load("@io_bazel_rules_closure//closure/compiler:closure_js_library.bzl", "closure_js_library")
+load("@io_bazel_rules_closure//closure/private:defs.bzl", "ClosureJsLibraryInfo", "SOY_FILE_TYPE", "extract_providers", "unfurl")
+load("@io_bazel_rules_closure//closure/templates:closure_templates_plugin.bzl", "SoyPluginInfo")
 
 _SOYTOJSSRCCOMPILER = "@closure-templates//java/src/com/google/template/soy:SoyToJsSrcCompiler"
 

@@ -9,7 +9,7 @@ module(
 # -------------------------------------------------------------------
 
 bazel_dep(name = "bazel_skylib", version = "1.8.2")
-bazel_dep(name = "build_stack_rules_proto", version = "4.1.0")
+bazel_dep(name = "build_stack_rules_proto", version = "4.1.1")
 bazel_dep(name = "closure-templates", version = "1.0.1")
 bazel_dep(name = "google_bazel_common", version = "0.0.1")
 bazel_dep(name = "platforms", version = "1.0.0")
