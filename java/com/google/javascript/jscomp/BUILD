@@ -47,6 +47,6 @@ java_library(
         "@google_bazel_common//third_party/java/dagger",
         "@google_bazel_common//third_party/java/guava",
         "@google_bazel_common//third_party/java/jsr330_inject",
-        "@maven//:args4j_args4j",
+        "@maven_rules_closure//:args4j_args4j",
     ],
 )

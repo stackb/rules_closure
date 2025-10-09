@@ -34,8 +34,8 @@ java_library(
         "@google_bazel_common//third_party/java/guava",
         "@google_bazel_common//third_party/java/jsr305_annotations",
         "@google_bazel_common//third_party/java/jsr330_inject",
-        "@maven//:com_google_closure_stylesheets_closure_stylesheets",
-        "@maven//:org_jsoup_jsoup",
+        "@maven_rules_closure//:com_google_closure_stylesheets_closure_stylesheets",
+        "@maven_rules_closure//:org_jsoup_jsoup",
     ],
 )
 
