@@ -45,6 +45,19 @@ archive_override(
     patch_strip = 1,
 )
 
+# Commit: e515ecaa7cc38498e371d1b776bff8d42028fd81
+# Date: 2025-10-09 04:14:16 +0000 UTC
+# URL: https://github.com/stackb/rules_proto/commit/e515ecaa7cc38498e371d1b776bff8d42028fd81
+#
+# Cleanup maven lock_file references (#405)
+# Size: 4095126 (4.1 MB)
+archive_override(
+    module_name = "build_stack_rules_proto",
+    sha256 = "f2c470eee7b4a7c06c89dd39611f8bdd9e0c2c80b088451ee0abce7f570d7d23",
+    strip_prefix = "rules_proto-e515ecaa7cc38498e371d1b776bff8d42028fd81",
+    urls = ["https://github.com/stackb/rules_proto/archive/e515ecaa7cc38498e371d1b776bff8d42028fd81.tar.gz"],
+)
+
 # -------------------------------------------------------------------
 # additional http dependencies
 # -------------------------------------------------------------------
