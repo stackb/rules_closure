@@ -21,7 +21,7 @@ licenses(["notice"])
 
 java_library(
     name = "compiler",
-    exports = ["@maven//:com_google_javascript_closure_compiler"],
+    exports = ["@maven_rules_closure//:com_google_javascript_closure_compiler"],
 )
 
 bzl_library(

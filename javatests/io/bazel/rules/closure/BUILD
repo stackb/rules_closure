@@ -38,6 +38,6 @@ java_test(
         "@google_bazel_common//third_party/java/guava:testlib",
         "@google_bazel_common//third_party/java/junit",
         "@google_bazel_common//third_party/java/truth",
-        "@maven//:com_google_jimfs_jimfs",
+        "@maven_rules_closure//:com_google_jimfs_jimfs",
     ],
 )

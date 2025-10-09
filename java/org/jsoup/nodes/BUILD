@@ -22,6 +22,6 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "@google_bazel_common//third_party/java/guava",
-        "@maven//:org_jsoup_jsoup",
+        "@maven_rules_closure//:org_jsoup_jsoup",
     ],
 )
