@@ -141,6 +141,21 @@ platform_http_file(
 # -------------------------------------------------------------------
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+# NOTE: even though we isolate OUR maven deps into a separate namespace, we
+# still need the ones from other contributing modules.  That is why this
+# maven.install() declaration exists, and I am surprised bzlmod /
+# rules_jvm_external works this way.
+maven.install(
+    name = "maven",
+    known_contributing_modules = [
+        "build_stack_rules_proto",
+        "grpc-java",
+        "io_bazel_rules_closure",
+        "protobuf",
+        "rules_web_testing_java",
+    ],
+)
 maven.install(
     name = "maven_rules_closure",
     artifacts = [
@@ -154,6 +169,7 @@ maven.install(
         "org.seleniumhq.selenium:selenium-api:4.27.0",
         "org.seleniumhq.selenium:selenium-support:4.27.0",
     ],
+    lock_file = "//:maven_rules_closure_install.json",
 )
 maven.artifact(
     name = "maven_rules_closure",
