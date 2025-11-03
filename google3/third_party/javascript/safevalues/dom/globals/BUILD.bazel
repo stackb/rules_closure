@@ -1,9 +1,9 @@
-load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_archive", "closure_ts_compile")
 load("//closure:defs.bzl", "closure_js_library")
 
 closure_js_library(
     name = "globals",
-    srcs = [":globals_ts"],
+    srcs = [":globals_"],
     lenient = True,
     suppress = ["JSC_TYPE_MISMATCH"],
     visibility = ["//visibility:public"],
@@ -12,6 +12,14 @@ closure_js_library(
         "//google3/third_party/javascript/safevalues/internals",
         "//google3/third_party/javascript/tslib",
     ],
+)
+
+closure_ts_archive(
+    name = "globals_",
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [":globals_ts"],
 )
 
 closure_ts_compile(

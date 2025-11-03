@@ -1,15 +1,21 @@
-load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_archive", "closure_ts_compile")
 load("//closure:defs.bzl", "closure_js_library")
 
 closure_js_library(
     name = "restricted",
-    srcs = [":restricted_ts"],
+    srcs = [":restricted_"],
     lenient = True,
     visibility = ["//visibility:public"],
     deps = [
+        "//google3/third_party/javascript/safevalues",
         "//google3/third_party/javascript/safevalues/internals",
         "//google3/third_party/javascript/tslib",
     ],
+)
+
+closure_ts_archive(
+    name = "restricted_",
+    deps = [":restricted_ts"],
 )
 
 closure_ts_compile(

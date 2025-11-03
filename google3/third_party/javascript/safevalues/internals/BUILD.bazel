@@ -1,13 +1,9 @@
-load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_archive", "closure_ts_compile")
 load("//closure:defs.bzl", "closure_js_library")
 
 closure_js_library(
     name = "internals",
-    srcs = [
-        "template_strings_array_externs.js",
-        "trusted_types_typings.js",
-        ":internals_ts",
-    ],
+    srcs = [":internals_"],
     lenient = True,
     suppress = [
         "JSC_REFERENCE_BEFORE_DECLARE",
@@ -18,6 +14,18 @@ closure_js_library(
     deps = [
         "//google3/third_party/javascript/tslib",  # needed by string_literal.js for templated functions
     ],
+)
+
+closure_ts_archive(
+    name = "internals_",
+    srcs = [
+        "template_strings_array_externs.js",
+        "trusted_types_typings.js",
+    ],
+    visibility = [
+        "//google3/third_party/javascript/safevalues:__subpackages__",
+    ],
+    deps = [":internals_ts"],
 )
 
 closure_ts_compile(
