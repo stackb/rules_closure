@@ -1,9 +1,9 @@
-load("@rules_tsickle//rules:defs.bzl", "closure_ts_archive", "closure_ts_compile")
+load("@rules_tsickle//rules:defs.bzl", "closure_ts_compile")
 load("//closure:defs.bzl", "closure_js_library")
 
 closure_js_library(
     name = "builders",
-    srcs = [":builders_"],
+    srcs = [":builders_ts"],
     lenient = True,
     suppress = [
         "uselessCode",
@@ -14,14 +14,6 @@ closure_js_library(
         "//google3/third_party/javascript/safevalues/internals",
         "//google3/third_party/javascript/tslib",
     ],
-)
-
-closure_ts_archive(
-    name = "builders_",
-    visibility = [
-        "//google3/third_party/javascript/safevalues:__subpackages__",
-    ],
-    deps = [":builders_ts"],
 )
 
 closure_ts_compile(
