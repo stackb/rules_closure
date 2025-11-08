@@ -24,6 +24,24 @@ bazel_dep(name = "rules_tsickle", version = "1.0.0")
 bazel_dep(name = "rules_web_testing_java", version = "0.4.1")
 bazel_dep(name = "rules_webtesting", version = "0.4.1")
 
+# google_bazel_common override is needed for @closure-compiler
+git_override(
+    module_name = "google_bazel_common",
+    # Pin to newer version to fix b/408030907
+    commit = "2cab52929507935aa43d460a3976d3bedc814d3a",
+    remote = "https://github.com/google/bazel-common",
+)
+
+local_path_override(
+    module_name = "rules_tsickle",
+    path = "/Users/pcj/go/src/github.com/stackb/rules_tsickle",
+)
+
+# local_path_override(
+#     module_name = "closure-compiler",
+#     path = "/Users/pcj/go/src/github.com/google/closure-compiler",
+# )
+
 # -------------------------------------------------------------------
 # Overrides
 # -------------------------------------------------------------------
@@ -137,6 +155,14 @@ platform_http_file(
 )
 
 # -------------------------------------------------------------------
+# java configuration
+# -------------------------------------------------------------------
+
+# Compatibility layer
+compat = use_extension("@rules_java//java:rules_java_deps.bzl", "compatibility_proxy")
+use_repo(compat, "compatibility_proxy")
+
+# -------------------------------------------------------------------
 # maven configuration
 # -------------------------------------------------------------------
 
@@ -175,7 +201,8 @@ maven.artifact(
     name = "maven_rules_closure",
     artifact = "closure-compiler",
     group = "com.google.javascript",
-    version = "v20250402",  # Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
+    # version = "v20250402",  # Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
+    version = "v20250820",  # Using maven.artifact here because the version number vxxxxx cannot parsed correctly.
 )
 maven.override(
     name = "maven_rules_closure",

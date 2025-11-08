@@ -1,6 +1,6 @@
 "defs.bzl provides provides a closure_js_library for proto files."
 
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library")
+load("//closure:defs.bzl", "closure_js_library")
 
 def closure_jspb_library(**kwargs):
     suppress = kwargs.pop("suppress", [])

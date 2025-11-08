@@ -106,7 +106,7 @@ Please see the test directories within this project for concrete examples of usa
 ## closure\_js\_library
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_library")
+load("//closure:defs.bzl", "closure_js_library")
 closure_js_library(name, srcs, data, deps, exports, suppress, convention,
                    no_closure_library)
 ```
@@ -206,7 +206,7 @@ This rule can be referenced as though it were the following:
 ## closure\_js\_binary
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_binary")
+load("//closure:defs.bzl", "closure_js_binary")
 closure_js_binary(name, deps, css, debug, language, entry_points,
                   dependency_mode, compilation_level, formatting,
                   output_wrapper, property_renaming_report, defs)
@@ -340,7 +340,7 @@ closure_js_binary(
 ## closure\_js\_test
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_js_test")
+load("//closure:defs.bzl", "closure_js_test")
 closure_js_test(name, srcs, data, deps, css, html, language, suppress,
                 compilation_level, entry_points, defs)
 ```
@@ -412,7 +412,7 @@ This rule can be referenced as though it were the following:
 ## phantomjs\_test
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "phantomjs_test")
+load("//closure:defs.bzl", "phantomjs_test")
 phantomjs_test(name, data, deps, html, harness, runner)
 ```
 
@@ -460,7 +460,7 @@ This rule can be referenced as though it were the following:
 ## closure\_css\_library
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_css_library")
+load("//closure:defs.bzl", "closure_css_library")
 closure_css_library(name, srcs, data, deps)
 ```
 
@@ -523,7 +523,7 @@ This rule can be referenced as though it were the following:
 ## closure\_css\_binary
 
 ```starlark
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_css_binary")
+load("//closure:defs.bzl", "closure_css_binary")
 closure_css_binary(name, deps, renaming, debug, defs)
 ```
 

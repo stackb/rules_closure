@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@io_bazel_rules_closure//closure/compiler:closure_js_library.bzl", "closure_js_library")
+load("//closure/compiler:closure_js_library.bzl", "closure_js_library")
 load("@build_stack_rules_proto//rules:proto_plugin.bzl", "proto_plugin")
 
 package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
+
+exports_files(["protobuf_javascript.patch"])
 
 closure_js_library(
     name = "jspb",

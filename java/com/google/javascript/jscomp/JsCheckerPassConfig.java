@@ -56,7 +56,7 @@ final class JsCheckerPassConfig extends PassConfig.PassConfigDelegate {
   }
 
   @Override
-  protected PassListBuilder getOptimizations(PassConfig.OptimizationPasses optimizationPasses) {
+  protected PassListBuilder getOptimizations() {
     return new PassListBuilder(options);
   }
 

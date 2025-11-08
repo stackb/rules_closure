@@ -8,7 +8,7 @@ load(
     "closure_js_template_library",
     "web_library",
 )
-load("@io_bazel_rules_closure//closure/protobuf:defs.bzl", "closure_jspb_library")
+load("//closure/protobuf:defs.bzl", "closure_jspb_library")
 
 package(default_testonly = True)
 
