@@ -16,7 +16,7 @@ def closure_jspb_library(**kwargs):
     ]
 
     deps = kwargs.pop("deps", [])
-    deps.append("@io_bazel_rules_closure//closure/protobuf:jspb")
+    deps.append("//closure/protobuf:jspb")
 
     closure_js_library(
         deps = deps,
