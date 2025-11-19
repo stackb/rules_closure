@@ -25,6 +25,7 @@ load(
     "ClosureJsLibraryInfo",
     "JS_FILE_TYPE",
     "JS_LANGUAGE_IN",
+    "JS_OR_ZIP_FILE_TYPE",
     "collect_js",
     "collect_runfiles",
     "convert_path_to_es6_module_name",
@@ -72,6 +73,9 @@ def create_closure_js_library(
         but also propagate up to closure_js_binary.
       lenient: makes the library lenient which suppresses handful of checkings in
         one shot.
+      convention: naming convention for the library (default: "CLOSURE")
+      internal_descriptors: depset of protobuf descriptor files
+      artifact_suffix: suffix to append to generated artifact names
 
     Returns:
       A closure_js_library metadata struct with exports and closure_js_library attribute
@@ -201,10 +205,6 @@ def _closure_js_library_impl(
     args.add("--output_errors", stderr_file)
     args.add("--output_ijs_file", ijs_file)
     args.add("--convention", convention)
-
-    # Because JsChecker is an edge in the build graph, we need to declare all of
-    # its input vertices.
-    inputs = []
 
     # We want to test the failure conditions of this rule from within Bazel,
     # rather than from a meta-system like shell scripts. In order to do that, we
@@ -375,12 +375,14 @@ def _closure_js_library(ctx):
     if not ctx.files.srcs and (ctx.attr.suppress or ctx.attr.lenient):
         fail("'srcs' must be set when using 'suppress' or 'lenient'")
     if ctx.attr.language:
+        # buildifier: disable=print
         print("The closure_js_library 'language' attribute is now removed and " +
               "is always set to " + JS_LANGUAGE_IN)
 
     # Create a list of the sources defined by this specific rule.
     srcs = ctx.files.srcs
     if ctx.files.externs:
+        # buildifier: disable=print
         print("closure_js_library 'externs' is deprecated; just use 'srcs'")
         srcs = ctx.files.externs + srcs
 
@@ -438,7 +440,7 @@ closure_js_library = rule(
         ),
         "includes": attr.string_list(),
         "no_closure_library": attr.bool(),
-        "srcs": attr.label_list(allow_files = JS_FILE_TYPE),
+        "srcs": attr.label_list(allow_files = JS_OR_ZIP_FILE_TYPE),
         "suppress": attr.string_list(),
         "lenient": attr.bool(),
 

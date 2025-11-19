@@ -2,7 +2,7 @@
 # They are too different to attempt a copybara transform between them.
 # This file is used in the closure-library repo by external Bazel users (via io_bazel_rules_closure)
 
-load("@io_bazel_rules_closure//closure/compiler:closure_base_js_library.bzl", "closure_base_js_library")
+load("//closure/compiler:closure_base_js_library.bzl", "closure_base_js_library")
 
 package(default_visibility = ["//visibility:public"])
 

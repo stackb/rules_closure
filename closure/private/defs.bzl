@@ -18,6 +18,7 @@
 CSS_FILE_TYPE = [".css", ".gss"]
 HTML_FILE_TYPE = [".html"]
 JS_FILE_TYPE = [".js"]
+JS_OR_ZIP_FILE_TYPE = [".js", ".zip"]
 JS_TEST_FILE_TYPE = ["_test.js"]
 SOY_FILE_TYPE = [".soy"]
 

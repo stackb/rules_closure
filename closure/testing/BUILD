@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+load("//closure:defs.bzl", "closure_js_binary", "closure_js_library")
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
 package(
     default_testonly = True,
     default_visibility = ["//visibility:public"],
 )
 
 licenses(["notice"])
-
-load("//closure:defs.bzl", "closure_js_binary", "closure_js_library")
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 # TODO: Consider sharing this with phantomjs.
 # html template used by webdriver_test.
@@ -61,7 +61,7 @@ bzl_library(
     srcs = ["webdriver_test.bzl"],
     deps = [
         "//closure:web_library_bzl",
-        "@rules_webtesting//web:web",
+        "@rules_webtesting//web",
     ],
 )
 
@@ -74,4 +74,3 @@ bzl_library(
         "//closure/compiler:compiler_bzl",
     ],
 )
-

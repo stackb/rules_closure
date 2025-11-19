@@ -7,6 +7,7 @@ closure_js_library(
     lenient = True,
     visibility = ["//visibility:public"],
     deps = [
+        "//google3/third_party/javascript/safevalues",
         "//google3/third_party/javascript/safevalues/internals",
         "//google3/third_party/javascript/tslib",
     ],

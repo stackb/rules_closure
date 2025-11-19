@@ -17,12 +17,12 @@
 load(
     "//closure/private:defs.bzl",
     "WebFilesInfo",
+    "collect_runfiles",
     "create_argfile",
     "difference",
     "extract_providers",
     "long_path",
     "unfurl",
-    "collect_runfiles",
 )
 
 def _web_library(ctx):
@@ -224,9 +224,7 @@ web_library = rule(
             cfg = "exec",
         ),
         "server": attr.label(
-            default = Label(
-                "//java/io/bazel/rules/closure/webfiles/server:WebfilesServer",
-            ),
+            default = Label("//java/io/bazel/rules/closure/webfiles/server:WebfilesServer"),
             executable = True,
             cfg = "exec",
         ),

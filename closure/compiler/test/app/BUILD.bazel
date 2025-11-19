@@ -1,6 +1,6 @@
 load("@build_stack_rules_proto//rules:proto_compile.bzl", "proto_compile")
 load(
-    "@io_bazel_rules_closure//closure:defs.bzl",
+    "//closure:defs.bzl",
     "closure_css_binary",
     "closure_css_library",
     "closure_js_binary",
@@ -8,7 +8,7 @@ load(
     "closure_js_template_library",
     "web_library",
 )
-load("@io_bazel_rules_closure//closure/protobuf:defs.bzl", "closure_jspb_library")
+load("//closure/protobuf:defs.bzl", "closure_jspb_library")
 
 package(default_testonly = True)
 
