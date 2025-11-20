@@ -19,8 +19,6 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
-exports_files(["protobuf_javascript.patch"])
-
 closure_js_library(
     name = "jspb",
     srcs = [
