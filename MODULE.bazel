@@ -49,7 +49,7 @@ archive_override(
     sha256 = "8a50071fbca5e4a26361e6c9d81dd842207f0005f7cc1720226f20c25a231805",
     strip_prefix = "protobuf-javascript-263ee701cba6b75e1f8eddad5adcdf74718318b1",
     urls = ["https://github.com/protocolbuffers/protobuf-javascript/archive/263ee701cba6b75e1f8eddad5adcdf74718318b1.tar.gz"],
-    patches = ["closure/protobuf/protobuf_javascript.patch"],
+    patches = ["protobuf_javascript.patch"],
     patch_strip = 1,
 )
 
