@@ -39,7 +39,7 @@ closure_js_library(
         "person_factory.js",
     ],
     # TODO(yannic): Remove this suppression when
-    #     `bazelbuild/io_bazel_rules_closure#436` is fixed.
+    #     `stackb/stackb_rules_closure#436` is fixed.
     suppress = ["moduleLoad"],
     deps = [
         ":person",

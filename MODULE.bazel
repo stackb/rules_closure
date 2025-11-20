@@ -1,5 +1,5 @@
 module(
-    name = "io_bazel_rules_closure",
+    name = "stackb_rules_closure",
     version = "0.0.0",
     compatibility_level = 1,
 )
@@ -167,7 +167,7 @@ maven.install(
     known_contributing_modules = [
         "build_stack_rules_proto",
         "grpc-java",
-        "io_bazel_rules_closure",
+        "stackb_rules_closure",
         "protobuf",
         "rules_web_testing_java",
     ],

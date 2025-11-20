@@ -1,8 +1,8 @@
 # Notice
 
-This is fork of [bazelbuild/io_bazel_rules_closure](https://github.com/bazelbuild/io_bazel_rules_closure) with the following main differences:
+This is fork of [bazelbuild/rules_closure](https://github.com/bazelbuild/rules_closure) with the following main differences:
 
-- repo name is `@io_bazel_rules_closure` instead of `@rules_closure`.
+- repo name is `@stackb_rules_closure` instead of `@rules_closure`.
 - the `closure/library` has been restored.
 - missing shims and third-party closure js code has been vendored in `google3/`.
 - support for protobuf-javascript has been restored.
@@ -10,11 +10,6 @@ This is fork of [bazelbuild/io_bazel_rules_closure](https://github.com/bazelbuil
 - integrated example app (`//closure/compiler/test/app:web`).
 - bzlmod deps updated
 - stricter .bazelrc flags
-
-> Since this fork is closer to the original rules_closure by @jart and needs to
-> be distinguished in the BCR, the repo name has been reverted to
-> `@io_bazel_rules_closure`.  The version numbers and tagging scheme are
-> somewhat arbitrary and will try to follow the numbering in the upstream repo.
 
 # Closure Rules for Bazel (αlpha) [![Bazel CI build status](https://badge.buildkite.com/7569410e2a2661076591897283051b6d137f35102167253fed.svg)](https://buildkite.com/bazel/closure-compiler-rules-closure-postsubmit)
 
@@ -82,7 +77,7 @@ First you must [install Bazel].
 Then you add the following to your MODULE.bazel file:
 
 ```bzl
-bazel_dep(name = "io_bazel_rules_closure", version = "0.15.0")
+bazel_dep(name = "stackb_rules_closure", version = "0.15.0")
 ```
 The root module has to declare the same override for rules_webtesting,
 rules_scala, and google_bazel_common temporarily until they are registered
@@ -95,9 +90,9 @@ for that matter; they will be fetched automatically by Bazel.
 
 Please see the test directories within this project for concrete examples of usage:
 
-- [//closure/testing/test](https://github.com/bazelbuild/io_bazel_rules_closure/tree/master/closure/testing/test)
-- [//closure/compiler/test](https://github.com/bazelbuild/io_bazel_rules_closure/tree/master/closure/compiler/test)
-- [//closure/stylesheets/test](https://github.com/bazelbuild/io_bazel_rules_closure/tree/master/closure/stylesheets/test)
+- [//closure/testing/test](https://github.com/stackb/stackb_rules_closure/tree/master/closure/testing/test)
+- [//closure/compiler/test](https://github.com/stackb/stackb_rules_closure/tree/master/closure/compiler/test)
+- [//closure/stylesheets/test](https://github.com/stackb/stackb_rules_closure/tree/master/closure/stylesheets/test)
 
 
 # Reference
@@ -319,7 +314,7 @@ This rule can be referenced as though it were the following:
 - **defs:** (List of strings; optional) Specifies additional flags to be passed
   to the Closure Compiler, e.g. `"--hide_warnings_for=some/path/"`. To see what
   flags are available, run:
-  `bazel run @io_bazel_rules_closure//third_party/java/jscomp:main -- --help`
+  `bazel run @stackb_rules_closure//third_party/java/jscomp:main -- --help`
 
 ### Support for AngularJS
 
@@ -441,17 +436,17 @@ This rule can be referenced as though it were the following:
   `<script>` tag based on a depth-first preordering.
 
 - **html:** (Label; optional; default is
-  `"@io_bazel_rules_closure//closure/testing:empty.html"`) HTML file containing
+  `"@stackb_rules_closure//closure/testing:empty.html"`) HTML file containing
   DOM structure of virtual web page *before* `<script>` tags are automatically
   inserted. Do not include a doctype in this file.
 
 - **harness:** (Label; required; default is
-  `"@io_bazel_rules_closure//closure/testing:phantomjs_harness"`) JS binary or
+  `"@stackb_rules_closure//closure/testing:phantomjs_harness"`) JS binary or
   library exporting a single source file, to be used as the PhantomJS outer
   script.
 
 - **runner:** (Label; optional; default is
-  `"@io_bazel_rules_closure//closure/testing:phantomjs_jsunit_runner"`) Same as
+  `"@stackb_rules_closure//closure/testing:phantomjs_jsunit_runner"`) Same as
   `deps` but guaranteed to be loaded inside the virtual web page last. This
   should run whatever tests got loaded by `deps` and then invoke `callPhantom`
   to report the result to the `harness`.
@@ -632,7 +627,7 @@ This rule can be referenced as though it were the following:
 [Closure Tools]: https://developers.google.com/closure/
 [Closure coding conventions]: https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/ClosureCodingConvention.java
 [ECMASCRIPT6]: http://es6-features.org/
-[Exports and Entry Points]: https://github.com/bazelbuild/io_bazel_rules_closure/blob/master/closure/compiler/test/exports_and_entry_points/BUILD
+[Exports and Entry Points]: https://github.com/stackb/stackb_rules_closure/blob/master/closure/compiler/test/exports_and_entry_points/BUILD
 [Google JavaScript Style Guide]: https://google.github.io/styleguide/jsguide.html
 [Google coding conventions]: https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/GoogleCodingConvention.java
 [Name]: https://docs.bazel.build/versions/master/build-ref.html#name
@@ -642,7 +637,7 @@ This rule can be referenced as though it were the following:
 [asserts]: https://github.com/google/closure-library/blob/master/closure/goog/testing/asserts.js#L1308
 [base.js]: https://github.com/google/closure-library/blob/master/closure/goog/base.js
 [install Bazel]: https://docs.bazel.build/versions/master/install.html
-[blockers]: https://github.com/bazelbuild/io_bazel_rules_closure/labels/launch%20blocker
+[blockers]: https://github.com/stackb/stackb_rules_closure/labels/launch%20blocker
 [closure_css_binary]: #closure_css_binary
 [closure_css_library]: #closure_css_library
 [closure_grpc_web_library]: https://github.com/grpc/grpc-web/blob/9b7b2d5411c486aa646ba2491cfd894d5352775b/bazel/closure_grpc_web_library.bzl#L149
@@ -654,7 +649,7 @@ This rule can be referenced as though it were the following:
 [css-sourcemap]: https://developer.chrome.com/devtools/docs/css-preprocessors
 [dependency]: https://docs.bazel.build/versions/master/build-ref.html#dependencies
 [filegroup]: https://docs.bazel.build/versions/master/be/general.html#filegroup
-[idom-example]: https://github.com/bazelbuild/io_bazel_rules_closure/blob/80d493d5ffc3099372929a8cd4a301da72e1b43f/closure/templates/test/greeter_idom.js
+[idom-example]: https://github.com/stackb/stackb_rules_closure/blob/80d493d5ffc3099372929a8cd4a301da72e1b43f/closure/templates/test/greeter_idom.js
 [java_library.exports]: https://docs.bazel.build/versions/master/be/java.html#java_library.exports
 [java_library]: https://docs.bazel.build/versions/master/be/java.html#java_library
 [jquery]: http://jquery.com/
