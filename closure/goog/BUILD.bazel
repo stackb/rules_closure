@@ -1,6 +1,6 @@
 # This file is a open-sourced version of internal BUILD file for closure base.
 # They are too different to attempt a copybara transform between them.
-# This file is used in the closure-library repo by external Bazel users (via io_bazel_rules_closure)
+# This file is used in the closure-library repo by external Bazel users (via stackb_rules_closure)
 
 load("//closure/compiler:closure_base_js_library.bzl", "closure_base_js_library")
 
