@@ -5,6 +5,15 @@ closure_js_library(
     name = "elements",
     srcs = [":elements_ts"],
     lenient = True,
+    suppress = [
+        # found   : (Element|null)
+        # required: (HTMLElement|null)
+        #     const parent = e.parentElement;
+        #                      ^
+        #   ProTip: "JSC_TYPE_MISMATCH" or "checkTypes" can be added to the `suppress` attribute of:
+        #   @@stackb_rules_closure+//google3/third_party/javascript/safevalues/dom/elements:elements
+        "checkTypes",
+    ],
     visibility = ["//visibility:public"],
     deps = [
         "//google3/third_party/javascript/safevalues/builders",
